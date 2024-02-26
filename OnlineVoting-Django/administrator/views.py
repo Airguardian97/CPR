@@ -7,8 +7,13 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 import json  # Not used
-#from django_renderpdf.views import PDFView
 
+import math as m
+import random as r
+from django_renderpdf.views import PDFView
+
+import numpy as np
+import pandas as pd
 
 def find_n_winners(data, n):
     """Read More
@@ -30,7 +35,7 @@ def find_n_winners(data, n):
     return ", &nbsp;".join(final_list)
 
 
-#class PrintView(PDFView):
+class PrintView(PDFView):
     template_name = 'admin/print.html'
     prompt_download = True
 
@@ -53,7 +58,8 @@ def find_n_winners(data, n):
             for candidate in Candidate.objects.filter(position=position):
                 this_candidate_data = {}
                 votes = Votes.objects.filter(candidate=candidate).count()
-                this_candidate_data['name'] = candidate.fullname
+                
+                this_candidate_data['name'] = candidate.fullname                
                 this_candidate_data['votes'] = votes
                 candidate_data.append(this_candidate_data)
             print("Candidate Data For  ", str(
@@ -108,7 +114,9 @@ def dashboard(request):
         chart_data[position] = {
             'candidates': list_of_candidates,
             'votes': votes_count,
+            
             'pos_id': position.id
+            
         }
 
     context = {
@@ -135,7 +143,10 @@ def voters(request):
     }
     if request.method == 'POST':
         if userForm.is_valid() and voterForm.is_valid():
+            
+            
             user = userForm.save(commit=False)
+           
             voter = voterForm.save(commit=False)
             voter.admin = user
             user.save()
@@ -159,7 +170,9 @@ def view_voter_by_id(request):
         context['last_name'] = voter.admin.last_name
         context['phone'] = voter.phone
         context['id'] = voter.id
+        context['username'] = voter.admin.username
         context['email'] = voter.admin.email
+        context['password'] = voter.admin.password
         #
         #context['lgu'] =  voter.lgu
         previous = VoterForm(instance=voter)
@@ -234,6 +247,18 @@ def deleteVoter(request):
 
     return redirect(reverse('adminViewVoters'))
 
+
+def passVoter(request):
+    if request.method != 'POST':
+        messages.error(request, "Access Denied")
+    try:
+        admin = Voter.objects.get(id=request.POST.get('id')).admin
+        admin.delete()
+        messages.success(request, "Voter Has Been Deleted")
+    except:
+        messages.error(request, "Access To This Resource Denied")
+
+    return redirect(reverse('adminViewVoters'))
 
 def viewPositions(request):
     positions = Position.objects.order_by('-priority').all()
@@ -424,3 +449,147 @@ def resetVote(request):
     Voter.objects.all().update(voted=False, verified=False, otp=None)
     messages.success(request, "All votes has been reset")
     return redirect(reverse('viewVotes'))
+
+
+
+
+
+def OTPgen(request) : 
+    voter_id = request.GET.get('id', None)
+    voter = Voter.objects.filter(id=voter_id)
+    context = {}
+  
+    if not voter.exists():
+        context['code'] = 404
+    else:
+        context['code'] = 200
+        voter = voter[0]
+        context['id'] = voter.id
+        OTP = ""      
+           
+        if  voter.otp is None or voter.otp=="":
+            string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            
+            
+            varlen= len(string) 
+            for i in range(6) : 
+                OTP += string[m.floor(r.random() * varlen)] 
+        else:
+            OTP = voter.otp
+        context['otp'] = OTP
+        
+        
+                       
+        
+    # Declare a string variable   
+    # which stores all alpha-numeric characters    
+    
+    return JsonResponse(context)
+
+
+def OTPsave(request) : 
+        
+        
+        
+        if request.method == 'POST':
+            OTP= request.POST.get('otp')
+            voterid = request.POST.get('id')
+            #voter.verified = True
+           #voter.save(update_fields=['otp'])
+            Voter.objects.filter(id=voterid).update(otp=OTP)
+        return redirect(reverse('adminViewVoters'))
+                
+        
+    # Declare a string variable   
+    # which stores all alpha-numeric characters    
+    
+def viewvotePositions(request,position_id):
+    
+    positions = Position.objects.all().order_by('priority')
+    candidates = Candidate.objects.all()
+    voters = Voter.objects.all()
+    voted_voters = Voter.objects.filter(voted=1)
+    list_of_candidates = []
+    
+    chart_data = {}
+
+          
+    for candidate in Candidate.objects.filter(position=position_id):
+        votes_count = 0
+        for lgu in LGU.objects.all():
+            votes_count = Votes.objects.all().select_related('voter','voter__lgu').filter(voter__lgu__name=lgu,candidate__fullname=candidate).count()
+            
+            
+            #list_of_candidates.append(candidate.fullname)
+            #votes = Votes.objects.filter(candidate=candidate).count()
+            #votes_count.append(votes)
+            #votes_count = votes
+            chart_data = {
+            'candidates': candidate.fullname,
+            'votes': votes_count, 
+            'lgu': lgu.name,  
+                      
+            }
+            list_of_candidates.append(chart_data)
+          
+
+        data = pd.DataFrame.from_dict(list_of_candidates)
+        # Convert 'votes' column from string to integer
+        data['votes'] = data['votes'].astype(int)            
+        data = pd.pivot_table(data,index='candidates', columns='lgu', values='votes', aggfunc='sum')
+        # Adding a total amount column
+        data['Total'] = data.sum(axis=1)                          
+        data.reset_index(inplace=True)
+    
+    pivot_tables = []
+    # for candidate in Candidate.objects.filter(position=position_id):
+    #     votes_count = 0
+    #     chart_data = []
+    #     for lgu in LGU.objects.all():
+    #         votes_count = Votes.objects.all().select_related('voter','voter__lgu').filter(voter__lgu__name=lgu,candidate__fullname=candidate).count()
+            
+    #         chart_data = {
+    #          'candidates': candidate.fullname,
+    #          'votes': votes_count, 
+    #          'lgu': lgu.name,  
+                      
+    #         }
+    #         list_of_candidates.append(chart_data)
+            
+          
+
+    #     data = pd.DataFrame.from_dict(list_of_candidates)
+    #     data['votes'] = data['votes'].astype(int)            
+    #     data = pd.pivot_table(data,index='candidates', columns='lgu', values='votes', aggfunc='sum')
+        
+    #     data['Total'] = data.sum(axis=1)                          
+    #     data.reset_index(inplace=True)
+    #     pivot_tables.append((candidate.fullname, data))
+        
+        
+        
+       
+    context = {
+        'table1': data,
+        'page_title': "Dashboard"
+    }
+    
+    
+    return render(request, "admin/votestally.html", context)
+                  
+                
+                
+                #votes = Votes.objects.filter(candidate=candidate).count()
+                # this_candidate_data['name'] = candidate.fullname
+                
+                # this_candidate_data['votes'] = votes
+                # candidate_data.append(this_candidate_data)
+    
+    
+    
+    #return redirect(reverse('adminDashboard'))
+
+   
+ 
+ 
+

@@ -25,7 +25,7 @@ SECRET_KEY = '%6lp_p!%r$7t-2ql5hc5(r@)8u_fc+6@ugxcnz=h=b(fn#3$p9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*","localhost", "127.0.0.1", "cpuevoting.com", "www.cpuevoting.com","www.cpuevoting.com:8800","e335-210-23-168-187.ngrok-free.app"]
 
 
 # Application definition
@@ -149,4 +149,4 @@ AUTHENTICATION_BACKENDS = ['account.email_backend.EmailBackend']
 ELECTION_TITLE_PATH = os.path.join(
     BASE_DIR, 'election_title.txt')  # Election Title File
 
-SEND_OTP = False  # If you toggle this to False, Kindly use 0000 as your OTP
+SEND_OTP = True  # If you toggle this to False, Kindly use 0000 as your OTP

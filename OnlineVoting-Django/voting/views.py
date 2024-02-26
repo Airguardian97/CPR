@@ -128,7 +128,8 @@ def generate_ballot(userTp,userlgu,display_controls=False):
     return output
 
 
-
+userTp =""
+userlgu =""
 
 def fetch_ballot(request):
    
@@ -152,7 +153,6 @@ def fetch_ballot(request):
         #context['lgu'] =  voter.lgu
     
           
-    
     userTp = request.user.user_type
     
   

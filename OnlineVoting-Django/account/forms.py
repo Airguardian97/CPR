@@ -11,14 +11,17 @@ class FormSettings(forms.ModelForm):
 
 
 class CustomUserForm(FormSettings):
-    email = forms.EmailField(required=True)
-    # email = forms.EmailField(required=True)
+    username = forms.CharField(max_length=99,required=True)
+    email = forms.EmailField(required=False)
     password = forms.CharField(widget=forms.PasswordInput)
 
     widget = {
         'password': forms.PasswordInput(),
+       
     }
+    
 
+    
     def __init__(self, *args, **kwargs):
         super(CustomUserForm, self).__init__(*args, **kwargs)
         if kwargs.get('instance'):
@@ -31,21 +34,22 @@ class CustomUserForm(FormSettings):
         else:
             self.fields['first_name'].required = True
             self.fields['last_name'].required = True
+            
 
-    def clean_email(self, *args, **kwargs):
-        formEmail = self.cleaned_data['email'].lower()
-        if self.instance.pk is None:  # Insert
-            if CustomUser.objects.filter(email=formEmail).exists():
-                raise forms.ValidationError(
-                    "The given email is already registered")
-        else:  # Update
-            dbEmail = self.Meta.model.objects.get(
-                id=self.instance.pk).email.lower()
-            if dbEmail != formEmail:  # There has been changes
-                if CustomUser.objects.filter(email=formEmail).exists():
-                    raise forms.ValidationError(
-                        "The given email is already registered")
-        return formEmail
+    # def clean_email(self, *args, **kwargs):
+    #     formEmail = self.cleaned_data['email'].lower()
+    #     if self.instance.pk is None:  # Insert
+    #         if CustomUser.objects.filter(email=formEmail).exists():
+    #             raise forms.ValidationError(
+    #                 "The given email is already registered")
+    #     else:  # Update
+    #         dbEmail = self.Meta.model.objects.get(
+    #             id=self.instance.pk).email.lower()
+    #         if dbEmail != formEmail:  # There has been changes
+    #             if CustomUser.objects.filter(email=formEmail).exists():
+    #                 raise forms.ValidationError(
+    #                     "The given email is already registered")
+    #     return formEmail
 
     def clean_password(self):
         password = self.cleaned_data.get("password", None)
@@ -58,4 +62,4 @@ class CustomUserForm(FormSettings):
 
     class Meta:
         model = CustomUser
-        fields = ['last_name', 'first_name', 'email', 'password', ]
+        fields = ['last_name', 'first_name','username',  'password', ]

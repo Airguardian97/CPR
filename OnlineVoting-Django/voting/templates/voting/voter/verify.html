@@ -33,8 +33,7 @@ aria-hidden="true">&times;</button>
               </p>
           </div>
           <ul>
-              <p> Kindly provide the OTP sent to your phone number that ends with
-                  **-***-*{{ request.user.voter.phone|slice:"7:" }}</p>
+              <p> Kindly provide the OTP given to you{{ request.user.voter.phone|slice:"7:" }}</p>
           </ul>
           <hr />
           <div class="form-group has-feedback">
