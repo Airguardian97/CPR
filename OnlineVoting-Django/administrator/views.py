@@ -14,6 +14,9 @@ from django_renderpdf.views import PDFView
 
 import numpy as np
 import pandas as pd
+import csv
+from io import TextIOWrapper
+
 
 def find_n_winners(data, n):
     """Read More
@@ -52,25 +55,85 @@ class PrintView(PDFView):
             pass
         context = super().get_context_data(*args, **kwargs)
         position_data = {}
-        for position in Position.objects.all():
+
+        LGUDTData = []
+        for position2 in Position.objects.all().order_by('priority'):
+            
+            LGUDT = {}
+            LGUPOS = ""
+            if position2.cat == "LGU":
+                for lgu in LGU.objects.all():
+                    LGUDT = {}
+                    LGUPOS = position2.name + " for " + lgu.name
+                    LGUDT['name'] = LGUPOS
+                    LGUDT['lguname'] = lgu.name
+                    LGUDT['positionname'] = position2.id
+                    LGUDT['max_vote'] = position2.max_vote
+                    LGUDTData.append(LGUDT)                
+                  
+                    # print("lgu for  ", str(LGUDT))
+            else:
+                LGUDT = {}
+                LGUPOS = position2.name
+                LGUDT['name'] = LGUPOS
+                LGUDT['lguname'] = "National"
+                LGUDT['positionname'] = position2.id
+                LGUDT['max_vote'] = position2.max_vote
+                LGUDTData.append(LGUDT)
+                # print("lgu for  ", str(LGUDT))
+            # for lgu in LGU.objects.all():
+            #     if position2.cat == "LGU":
+            #         LGUPOS = position2.name + " " + lgu.name
+            #     else:
+            #         LGUPOS = position2.name
+            #     LGUDT['name'] = LGUPOS
+            #     LGUDT['positionname'] = position2.id
+            #     LGUDT['max_vote'] = position2.max_vote
+            #     LGUDTData.append(LGUDT)
+                
+            # print("lgu for  ", str(LGUDT))
+            # print(LGUDTData)
+        # print(LGUDTData)
+        for id, position in enumerate(LGUDTData):
+            
             candidate_data = []
             winner = ""
-            for candidate in Candidate.objects.filter(position=position):
-                this_candidate_data = {}
-                votes = Votes.objects.filter(candidate=candidate).count()
+            if position["lguname"] == "National":
+                for candidate in Candidate.objects.filter(position=position["positionname"]):
+                    this_candidate_data = {}               
+                    votes = Votes.objects.filter(candidate=candidate).count()
+                    this_candidate_data['name'] = candidate.fullname
+                    this_candidate_data['votes'] = votes
+                    candidate_data.append(this_candidate_data)
+            else:
+                for candidate in Candidate.objects.filter(position=position["positionname"]):
+                    this_candidate_data = {}    
+                    if candidate.lgu.name ==  position["lguname"]:        
+                        votes = Votes.objects.filter(candidate=candidate).count()
+                        this_candidate_data['name'] = candidate.fullname
+                        this_candidate_data['votes'] = votes
+                        candidate_data.append(this_candidate_data)
                 
-                this_candidate_data['name'] = candidate.fullname                
-                this_candidate_data['votes'] = votes
-                candidate_data.append(this_candidate_data)
-            print("Candidate Data For  ", str(
-                position.name), " = ", str(candidate_data))
+                
+                
+            # for candidate in Candidate.objects.filter(position=position["positionname"]):
+            #     this_candidate_data = {}               
+            #     votes = Votes.objects.filter(candidate=candidate).count()
+            #     this_candidate_data['name'] = candidate.fullname
+            #     this_candidate_data['votes'] = votes
+            #     candidate_data.append(this_candidate_data)
+                
+                
+               
+            # print("Candidate1 Data For  ", str(
+            #     position["name"]), " = ", str(this_candidate_data))
             # ! Check Winner
             if len(candidate_data) < 1:
                 winner = "Position does not have candidates"
             else:
                 # Check if max_vote is more than 1
-                if position.max_vote > 1:
-                    winner = find_n_winners(candidate_data, position.max_vote)
+                if position["max_vote"] > 1:
+                    winner = find_n_winners(candidate_data, position["max_vote"])
                 else:
 
                     winner = max(candidate_data, key=lambda x: x['votes'])
@@ -86,17 +149,49 @@ class PrintView(PDFView):
                             winner = f"There are {count} candidates with {winner['votes']} votes"
                         else:
                             winner = "Winner : " + winner['name']
-            print("Candidate Data For  ", str(
-                position.name), " = ", str(candidate_data))
-            position_data[position.name] = {
-                'candidate_data': candidate_data, 'winner': winner, 'max_vote': position.max_vote}
+            # print("Candidate Data For  ", str(
+            #     position["name"]), " = ", str(candidate_data))
+            position_data[position["name"]] = {
+                'candidate_data': candidate_data, 'winner': winner, 'max_vote': position["max_vote"]}
         context['positions'] = position_data
-        print(context)
+        # print(context)
         return context
 
 
 def dashboard(request):
-    positions = Position.objects.all().order_by('priority')
+    LGUDTData = []
+    counter = 1  # Initialize a counter variable
+
+    for position2 in Position.objects.all().order_by('priority'):
+        LGUDT = {}
+        LGUPOS = ""
+
+        if position2.cat == "LGU":
+            for lgu in LGU.objects.all():
+                LGUDT = {}
+                LGUPOS = position2.name + " for " + lgu.name
+                LGUDT['id'] = counter  # Add the id column
+                LGUDT['name'] = LGUPOS
+                LGUDT['lguname'] = lgu.name
+                LGUDT['positionname'] = position2.id
+                LGUDT['max_vote'] = position2.max_vote
+                LGUDTData.append(LGUDT)
+                counter += 1  # Increment the counter
+        else:
+            LGUDT = {}
+            LGUPOS = position2.name
+            LGUDT['id'] = counter  # Add the id column
+            LGUDT['name'] = LGUPOS
+            LGUDT['lguname'] = "National"
+           
+            LGUDT['positionname'] = position2.id
+            LGUDT['max_vote'] = position2.max_vote
+            LGUDTData.append(LGUDT)
+            counter += 1  # Increment the counter
+    
+    
+    
+    positions = LGUDTData
     candidates = Candidate.objects.all()
     voters = Voter.objects.all()
     voted_voters = Voter.objects.filter(voted=1)
@@ -107,20 +202,49 @@ def dashboard(request):
     for position in positions:
         list_of_candidates = []
         votes_count = []
-        for candidate in Candidate.objects.filter(position=position):
-            list_of_candidates.append(candidate.fullname)
-            votes = Votes.objects.filter(candidate=candidate).count()
-            votes_count.append(votes)
-        chart_data[position] = {
+        
+        if position["lguname"] == "National":
+            for candidate in Candidate.objects.filter(position=position['positionname']):
+                    list_of_candidates.append(candidate.fullname)
+                    votes = Votes.objects.filter(candidate=candidate).count()
+                    votes_count.append(votes)
+            chart_data[position['name']] = {
             'candidates': list_of_candidates,
             'votes': votes_count,
-            
-            'pos_id': position.id
-            
-        }
-
+            'pos_id': position['positionname']
+            }
+        else:
+            for candidate in Candidate.objects.filter(position=position['positionname']):
+                if candidate.lgu.name == position['lguname']:
+                        list_of_candidates.append(candidate.fullname)
+                        votes = Votes.objects.filter(candidate=candidate).count()
+                        votes_count.append(votes)
+                chart_data[position['name']] = {
+                'candidates': list_of_candidates,
+                'votes': votes_count,
+                'pos_id': position['positionname']
+                }
+        
+        
+       
+        # for candidate in Candidate.objects.filter(position=position['positionname']):
+        #     list_of_candidates.append(candidate.fullname)
+        #     votes = Votes.objects.filter(candidate=candidate).count()
+        #     votes_count.append(votes)
+        # chart_data[position['name']] = {
+        #     'candidates': list_of_candidates,
+        #     'votes': votes_count,
+        #     'pos_id': position['id']
+        # }
+    print(chart_data)
+    
+    
+    
+    
+    
+    
     context = {
-        'position_count': positions.count(),
+        'position_count': len(positions),
         'candidate_count': candidates.count(),
         'voters_count': voters.count(),
         'voted_voters_count': voted_voters.count(),
@@ -129,6 +253,33 @@ def dashboard(request):
         'page_title': "Dashboard"
     }
     return render(request, "admin/home.html", context)
+
+
+
+# def voters(request):
+#     voters = Voter.objects.all()
+#     userForm = CustomUserForm(request.POST or None)
+#     voterForm = VoterForm(request.POST or None)
+#     context = {
+#         'form1': userForm,
+#         'form2': voterForm,
+#         'voters': voters,
+#         'page_title': 'Voters List'
+#     }
+#     if request.method == 'POST':
+#         if userForm.is_valid() and voterForm.is_valid():
+            
+            
+#             user = userForm.save(commit=False)
+           
+#             voter = voterForm.save(commit=False)
+#             voter.admin = user
+#             user.save()
+#             voter.save()
+#             messages.success(request, "New voter created")
+#         else:
+#             messages.error(request, "Form validation failed")
+#     return render(request, "admin/voters.html", context)
 
 
 def voters(request):
@@ -155,6 +306,129 @@ def voters(request):
         else:
             messages.error(request, "Form validation failed")
     return render(request, "admin/voters.html", context)
+
+# def bulk_create_voters(request):
+    voters = Voter.objects.all()
+    userForm = CustomUserForm(prefix='user')
+    voterForm = VoterForm(prefix='voter')
+    context = {
+        'form1': userForm,
+        'form2': voterForm,
+        'voters': voters,
+        'page_title': 'Voters List'
+    }
+    
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+        
+        # Check if the uploaded file is a CSV file
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, "Please upload a CSV file")
+            return redirect('adminViewVoters')
+        
+        # Parse the CSV file and create voter objects
+        try:
+            voters_to_create = []
+            csv_text = TextIOWrapper(csv_file.file, encoding='utf-8-sig')
+            reader = csv.DictReader(csv_text)
+           
+            for row in reader:
+                username = row['LASTNAME'] + row['FIRSTNAME']
+                password = row['STUDENTNO']
+                print(username)
+                print(password)
+                # Assuming you have defined user_form and voter_form
+                if userForm.is_valid() and voterForm.is_valid():
+                    user = userForm.save()
+                    voter = voterForm.save(commit=False)
+                    voter.admin = user
+                    voters_to_create.append(voter)
+                else:
+                    messages.error(request, "Form validation failed for a row in the CSV")
+                    return redirect('adminViewVoters')
+            
+            # Bulk create the voter objects
+            Voter.objects.bulk_create(voters_to_create)
+            
+            messages.success(request, "New voters created from CSV")
+            return redirect('adminViewVoters')
+        except UnicodeDecodeError as e:
+            messages.error(request, f"Error decoding CSV file: {e}. Try using a different encoding.")
+            return redirect('adminViewVoters')
+        except Exception as e:
+            messages.error(request, f"Error processing CSV file: {e}")
+            return redirect('adminViewVoters')
+    
+
+    return render(request, 'admin/bulk_create_voters.html')
+
+def create_voter(user_data, voter_data):
+    user = CustomUserForm(user_data).save(commit=False)
+    user.save()
+
+    voter = VoterForm(voter_data).save(commit=False)
+    voter.admin = user
+    voter.save()
+
+
+def bulk_create_voters(request):
+    
+    
+    voters = Voter.objects.all()
+    userForm = CustomUserForm(request.POST or None)
+    voterForm = VoterForm(request.POST or None)
+    context = {
+        'form1': userForm,
+        'form2': voterForm,
+        'voters': voters,
+        'page_title': 'Voters List'
+    }
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'Please upload a CSV file')
+        else:
+            try:
+                decoded_file = csv_file.read().decode('utf-8').splitlines()
+                reader = csv.DictReader(decoded_file)
+                for row in reader:
+                    lgu_name = row['COLLEGE'].strip()  # Assuming 'LGU' is the column name for LGU name
+                    try:
+                        
+                        lgu = LGU.objects.get(description=lgu_name)  # Query the LGU based on name
+                    except LGU.DoesNotExist:
+                        messages.error(request, f'LGU with description "{lgu_name}" not found')
+                        continue
+                    
+                    try:
+                        student_no = str(row['STUDENTNO']).strip().lower()
+                    except KeyError:
+                        messages.error(request, 'STUDENTNO field is missing in the CSV file')
+                        continue  # Move to the next row
+
+                    user_data = {
+                        'username': row['FIRSTNAME'].strip().lower() +"-"+ row['LASTNAME'].strip().lower(),  # Compose username,
+                        'password': student_no,
+                        'last_name': row['LASTNAME'].strip(),
+                        'first_name': row['FIRSTNAME'].strip(),
+                        'email' : "",
+                    }
+                    voter_data = {
+                        'lgu': lgu.id,
+                        'phone': "0",
+                    }
+                    userForm = CustomUserForm(user_data)
+                    if userForm.is_valid():
+                        create_voter(user_data, voter_data)
+                    else:
+                        messages.error(request, f'User creation failed: {userForm.errors.as_text()}')
+                messages.success(request, 'Voters created successfully')
+            except Exception as e:
+                messages.error(request, f'Error processing CSV file: {str(e)}')
+    else:
+        messages.error(request, 'Please upload a CSV file')
+    return render(request, "admin/voters.html", context)
+
 
 
 def view_voter_by_id(request):
@@ -503,7 +777,7 @@ def OTPsave(request) :
     # Declare a string variable   
     # which stores all alpha-numeric characters    
     
-def viewvotePositions(request,position_id):
+def viewvotePositions(request,position_id,lgu_id):
     
     positions = Position.objects.all().order_by('priority')
     candidates = Candidate.objects.all()
@@ -511,35 +785,82 @@ def viewvotePositions(request,position_id):
     voted_voters = Voter.objects.filter(voted=1)
     list_of_candidates = []
     
-    chart_data = {}
+      
+    try:
+        pos = Position.objects.get(id=position_id)
+        poscat = pos.cat
+    except LGU.DoesNotExist:
+    # Handle the case where the LGU with the specified ID does not exist
+        poscat = None  # or any default value you want to assign
+    
+    
+    try:
+        lgu = LGU.objects.get(name=lgu_id)
+        lguid = lgu.id
+    except LGU.DoesNotExist:
+    # Handle the case where the LGU with the specified ID does not exist
+        lguid = None  # or any default value you want to assign
+    
+    print(lguid)
+    if poscat == "National":
+        chart_data = {}   
 
-          
-    for candidate in Candidate.objects.filter(position=position_id):
-        votes_count = 0
-        for lgu in LGU.objects.all():
+        for candidate in Candidate.objects.filter(position=position_id):
+            votes_count = 0
+            print(candidate)
+            for lgu in LGU.objects.all():
+                votes_count = Votes.objects.all().select_related('voter','voter__lgu').filter(voter__lgu__name=lgu,candidate__fullname=candidate).count()
+                        
+                #list_of_candidates.append(candidate.fullname)
+                #votes = Votes.objects.filter(candidate=candidate).count()
+                #votes_count.append(votes)
+                #votes_count = votes
+                chart_data = {
+                'candidates': candidate.fullname,
+                'votes': votes_count, 
+                'lgu': lgu.name,  
+                        
+                }
+                list_of_candidates.append(chart_data)
+            # print(list_of_candidates)
+            data = pd.DataFrame.from_dict(list_of_candidates)
+            # Convert 'votes' column from string to integer
+            data['votes'] = data['votes'].astype(int)            
+            data = pd.pivot_table(data,index='candidates', columns='lgu', values='votes', aggfunc='sum')
+            # Adding a total amount column
+            data['Total'] = data.sum(axis=1)                          
+            data.reset_index(inplace=True)
+    
+    
+    else:
+    
+    
+        chart_data = {}   
+
+        for candidate in Candidate.objects.filter(position=position_id,lgu=lguid):
+            votes_count = 0
+                       
             votes_count = Votes.objects.all().select_related('voter','voter__lgu').filter(voter__lgu__name=lgu,candidate__fullname=candidate).count()
-            
-            
-            #list_of_candidates.append(candidate.fullname)
-            #votes = Votes.objects.filter(candidate=candidate).count()
-            #votes_count.append(votes)
-            #votes_count = votes
+                        
+                #list_of_candidates.append(candidate.fullname)
+                #votes = Votes.objects.filter(candidate=candidate).count()
+                #votes_count.append(votes)
+                #votes_count = votes
             chart_data = {
-            'candidates': candidate.fullname,
-            'votes': votes_count, 
-            'lgu': lgu.name,  
-                      
-            }
+                'Candidates': candidate.fullname,
+                'votes': votes_count, 
+                  
+                        
+                }
             list_of_candidates.append(chart_data)
-          
-
-        data = pd.DataFrame.from_dict(list_of_candidates)
-        # Convert 'votes' column from string to integer
-        data['votes'] = data['votes'].astype(int)            
-        data = pd.pivot_table(data,index='candidates', columns='lgu', values='votes', aggfunc='sum')
-        # Adding a total amount column
-        data['Total'] = data.sum(axis=1)                          
-        data.reset_index(inplace=True)
+            # print(list_of_candidates)
+            data = pd.DataFrame.from_dict(list_of_candidates)
+            # Convert 'votes' column from string to integer
+            data['votes'] = data['votes'].astype(int)            
+            # data = pd.pivot_table(data,index='candidates', columns='lgu', values='votes', aggfunc='sum')
+            # # Adding a total amount column
+            # data['Total'] = data.sum(axis=1)                          
+            # data.reset_index(inplace=True)
     
     pivot_tables = []
     # for candidate in Candidate.objects.filter(position=position_id):

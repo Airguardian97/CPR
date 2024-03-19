@@ -12,7 +12,7 @@ urlpatterns = [
     path('voters/password', views.passVoter, name='passVoter'),
     path('voters/genotp', views.OTPgen, name='genotp'),
     path('voters/saveotp', views.OTPsave, name='savenotp'),
-    
+    path('voters/bulk_create_voters', views.bulk_create_voters, name='bulk_create_voters'),
     # * Position
     path('position/view', views.view_position_by_id, name="viewPosition"),
     path('position/update', views.updatePosition, name="updatePosition"),
@@ -35,7 +35,7 @@ urlpatterns = [
     path('votes/view', views.viewVotes, name='viewVotes'),
     path('votes/reset/', views.resetVote, name='resetVote'),
     path('votes/print/', views.PrintView.as_view(), name='printResult'),
-    path('votes/viewperpos/<int:position_id>/', views.viewvotePositions, name='viewvotePositions'),
+    path('votes/viewperpos/<int:position_id>/<str:lgu_id>/', views.viewvotePositions, name='viewvotePositions'),
 
 
 

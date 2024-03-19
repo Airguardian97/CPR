@@ -83,9 +83,7 @@
         <div class='box-header with-border'>
           <h4 class='box-title'><b>{{ position.name }}</b></h4>
           <span class="pull-right">
-            <!--<a href="{% url 'printResult' %}"  type="button" class="btn btn-secondary">View</a>-->
-            <!--<button href="{% url 'viewvotePositions' position.id %}"  class='btn btn-success btn-sm view btn-flat' data-id='{{ position.id }}'></i> View</button>-->
-             <a href="{% url 'viewvotePositions' position.id  %}" class="btn btn-success btn-sm btn-flat"> View</a>
+            <a href="{% url 'viewvotePositions' position.positionname position.lguname %}" class="btn btn-success btn-sm btn-flat"> View</a>
               
           
           </span>

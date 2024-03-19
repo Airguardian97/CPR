@@ -19,7 +19,7 @@
           <th>Action</th>
       </thead>
       <tbody>
-    {% for candidate in candidates %}
+    {% for candidate in candidates|dictsort:"fullname" %}
       
     <tr>
       <td>{{ candidate.fullname }}</td>

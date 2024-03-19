@@ -7,7 +7,18 @@
 <div class="box-header with-border">
   <a href="#addnew" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i
           class="fa fa-plus"></i> Add New</a>
+          <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#uploadCSVModal"><i class="fa fa-upload"></i> Upload CSV</button>
 </div>
+
+
+
+
+<!-- Add New Button -->
+{% comment %} <div class="box-header with-border">
+  <a href="#addnew" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus"></i> Add New</a> 
+ 
+</div> {% endcomment %}
+
 <div class="box-body">
   <table id="example1" class="table table-bordered table-hover table-striped">
     <thead style="background-color: #222D32; color:white;">
@@ -264,6 +275,35 @@
   </div>
 </div>
 
+
+
+
+<!-- CSV Upload Modal -->
+<div class="modal fade" id="uploadCSVModal" tabindex="-1" role="dialog" aria-labelledby="uploadCSVModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadCSVModalLabel">Upload CSV File</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data" action="{% url 'bulk_create_voters' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="csvFile">Choose CSV File:</label>
+            <input type="file" class="form-control-file" id="csvFile" name="csv_file">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock modal %}
 
 
