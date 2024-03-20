@@ -9,7 +9,8 @@
           class="fa fa-plus"></i> Add New</a>
           <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#uploadCSVModal"><i class="fa fa-upload"></i> Upload CSV</button>
 </div>
-
+<!-- Add a button to trigger printing -->
+<button onclick="printTable()" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-print"></i> Print Table</button>
 
 
 
@@ -51,7 +52,7 @@
       <td>
         <button class='btn btn-primary btn-sm edit btn-flat' data-id='{{ voter.id }}'><i class='fa fa-edit'></i> Edit</button>
         <button class='btn btn-danger btn-sm delete btn-flat' data-id='{{ voter.id }}'><i class='fa fa-trash'></i> Delete</button>
-        <button class='btn btn-success btn-sm view btn-flat' data-id='{{ voter.id }}'><i class="fa fa-ticket"></i></i> Generate</button>
+        <button class='btn btn-success btn-sm view btn-flat' data-id='{{ voter.id }}'><i class="fa fa-ticket"></i></i> View</button>
       </td>
     </tr>
     {% endfor %}      
@@ -380,5 +381,110 @@
         });
   }
   </script>
+
+
+  <!-- CSS for print styling -->
+<style>
+  @media print {
+      /* Hide buttons and other elements not needed in print */
+      .box-header {
+          display: none;
+      }
+
+      .btn {
+          display: none;
+      }
+
+      /* Adjust table styles for printing */
+      table {
+          width: 100%;
+          border-collapse: collapse;
+      }
+
+      th,
+      td {
+          border: 1px solid #000;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #222D32;
+          color: white;
+      }
+  }
+</style>
+
+
+<script>
+    {% comment %} function printTable() {
+        // Hide pagination and adjust table styles for printing
+        var table = document.getElementById('example1');
+        var paging = table.nextSibling; // Assuming the pagination is directly after the table
+        var pageNumbers = document.getElementsByClassName('paginate_button');
+       
+        // Copy table content to print body
+           // Copy table content to print body
+        var printContent = table.outerHTML;
+
+           // Copy all pages of the table content
+        for (var i = 0; i < pageNumbers.length; i++) {
+               pageNumbers[i].click(); // Click each page number to load its content
+               printContent += table.outerHTML; // Append the HTML content of the table
+           }
+
+
+        // Adjust table styles for printing
+        table.style.width = '100%'; // Adjust the width of the table
+        table.style.borderCollapse = 'collapse'; // Collapse borders between table cells
+
+       
+        // Open print window and print the content
+        var printWindow = window.open('', '', 'width=800, height=600');
+        printWindow.document.write('<html><head><title>Print Table</title></head><body>');
+        printWindow.document.write(printContent);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+
+    
+
+        table.style.width = ''; // Restore original width
+        table.style.borderCollapse = ''; // Restore original border collapse
+    } {% endcomment %}
+ 
+    function printTable() {
+      var printContent = ''; // Initialize variable to store combined HTML content
+      var table = $('.table').DataTable(); // Get the DataTable instance
+
+      // Get information about the pagination state
+      var pageInfo = table.page.info();
+      var totalPages = pageInfo.pages;
+
+      // Iterate through each page of the table
+      for (var i = 0; i < totalPages; i++) {
+          table.page(i).draw('page'); // Go to page i
+          var pageHTML = ''; // Initialize variable to store HTML content of each page
+          // Fetch HTML content of current page
+          $('.table tbody tr').each(function() {
+              pageHTML += $(this)[0].outerHTML; // Append each row to pageHTML
+          });
+          printContent += pageHTML; // Append pageHTML to printContent
+      }
+
+      // Open a new window with the combined HTML content for printing
+      var printWindow = window.open('', '', 'width=800, height=600');
+      printWindow.document.write('<html><head><title>Print Table</title></head><body><table>');
+      printWindow.document.write(printContent); // Write combined HTML content to new window
+      printWindow.document.write('</table></body></html>');
+      printWindow.document.close();
+
+      // Print the content
+      printWindow.print();
+  }
+
+</script>
+
+
 {% endblock custom_js %}
   

@@ -20,3 +20,9 @@ class CandidateForm(FormSettings):
     class Meta:
         model = Candidate
         fields = ['fullname', 'bio','lgu', 'position', 'photo']
+
+
+class LGUForm(FormSettings):
+    class Meta:
+        model = LGU
+        fields = ['name', 'description']

@@ -13,12 +13,23 @@ urlpatterns = [
     path('voters/genotp', views.OTPgen, name='genotp'),
     path('voters/saveotp', views.OTPsave, name='savenotp'),
     path('voters/bulk_create_voters', views.bulk_create_voters, name='bulk_create_voters'),
+    path('voters/<int:lgu_id>/', views.votersBY, name="adminViewVotersBY"),
     # * Position
     path('position/view', views.view_position_by_id, name="viewPosition"),
     path('position/update', views.updatePosition, name="updatePosition"),
     path('position/delete', views.deletePosition, name='deletePosition'),
     path('positions/view', views.viewPositions, name='viewPositions'),
 
+
+    # * LGU
+    path('lgus/view', views.viewLgus, name="viewLgus"),
+    path('lgu/view', views.viewLgus_by_id, name="viewLgu"),
+    path('lgu/update', views.updateLGU, name="updateLGU"),
+    path('lgu/delete', views.deleteLGU, name='deleteLGU'),
+    
+    
+    
+    
     # * Candidate
     path('candidate/', views.viewCandidates, name='viewCandidates'),
     path('candidate/update', views.updateCandidate, name="updateCandidate"),

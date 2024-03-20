@@ -158,6 +158,8 @@ class PrintView(PDFView):
         return context
 
 
+
+
 def dashboard(request):
     LGUDTData = []
     counter = 1  # Initialize a counter variable
@@ -307,6 +309,38 @@ def voters(request):
             messages.error(request, "Form validation failed")
     return render(request, "admin/voters.html", context)
 
+
+
+def votersBY(request,lgu_id):
+    
+    if lgu_id == "":
+        voters = Voter.objects.all()
+    else:
+        voters = Voter.objects.filter(lgu_id=lgu_id)
+    
+    userForm = CustomUserForm(request.POST or None)
+    voterForm = VoterForm(request.POST or None)
+    context = {
+        'form1': userForm,
+        'form2': voterForm,
+        'voters': voters,
+        'page_title': 'Voters List'
+    }
+    if request.method == 'POST':
+        if userForm.is_valid() and voterForm.is_valid():
+            
+            
+            user = userForm.save(commit=False)
+           
+            voter = voterForm.save(commit=False)
+            voter.admin = user
+            user.save()
+            voter.save()
+            messages.success(request, "New voter created")
+        else:
+            messages.error(request, "Form validation failed")
+    return render(request, "admin/voters.html", context)
+
 # def bulk_create_voters(request):
     voters = Voter.objects.all()
     userForm = CustomUserForm(prefix='user')
@@ -365,11 +399,22 @@ def voters(request):
 def create_voter(user_data, voter_data):
     user = CustomUserForm(user_data).save(commit=False)
     user.save()
+    
+     # Define a dynamic form class with the additional field
+    class DynamicVoterForm(VoterForm):
+        otp = forms.CharField()  # Define the additional field here
 
-    voter = VoterForm(voter_data).save(commit=False)
+        class Meta(VoterForm.Meta):
+            fields = VoterForm.Meta.fields + ['otp'] 
+    
+    voter_form_data = voter_data.copy()
+    
+    
+    # voter = VoterForn(voter_data).save(commit=False)
+    voter = DynamicVoterForm(voter_form_data).save(commit=False)
     voter.admin = user
     voter.save()
-
+    
 
 def bulk_create_voters(request):
     
@@ -405,7 +450,7 @@ def bulk_create_voters(request):
                     except KeyError:
                         messages.error(request, 'STUDENTNO field is missing in the CSV file')
                         continue  # Move to the next row
-
+                    print(student_no)
                     user_data = {
                         'username': row['FIRSTNAME'].strip().lower() +"-"+ row['LASTNAME'].strip().lower(),  # Compose username,
                         'password': student_no,
@@ -413,10 +458,14 @@ def bulk_create_voters(request):
                         'first_name': row['FIRSTNAME'].strip(),
                         'email' : "",
                     }
+                    print(user_data)
+                    OTP = genotp()
                     voter_data = {
-                        'lgu': lgu.id,
+                        'lgu': lgu.id,  
+                        'otp' : OTP,                   
                         'phone': "0",
                     }
+                    print(voter_data)
                     userForm = CustomUserForm(user_data)
                     if userForm.is_valid():
                         create_voter(user_data, voter_data)
@@ -742,12 +791,8 @@ def OTPgen(request) :
         OTP = ""      
            
         if  voter.otp is None or voter.otp=="":
-            string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            
-            
-            varlen= len(string) 
-            for i in range(6) : 
-                OTP += string[m.floor(r.random() * varlen)] 
+        #   OTP = genotp()
+            3
         else:
             OTP = voter.otp
         context['otp'] = OTP
@@ -759,6 +804,14 @@ def OTPgen(request) :
     # which stores all alpha-numeric characters    
     
     return JsonResponse(context)
+
+def genotp():
+    OTP = ""
+    string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    varlen = len(string)
+    for i in range(6):
+        OTP += string[m.floor(r.random() * varlen)]
+    return OTP
 
 
 def OTPsave(request) : 
@@ -911,6 +964,90 @@ def viewvotePositions(request,position_id,lgu_id):
     #return redirect(reverse('adminDashboard'))
 
    
+
+def viewLgus(request):
+    lgus = LGU.objects.order_by('-priority').all()
+    form = LGUForm(request.POST or None)
+    context = {
+        'lgus': lgus,
+        'form1': form,
+        'page_title': "LGU"
+    }
+    if request.method == 'POST':
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.priority = lgus.count() + 1  # Just in case it is empty.
+            form.save()
+            messages.success(request, "New lgus Created")
+        else:
+            messages.error(request, "Form errors")
+    return render(request, "admin/lgus.html", context)
  
  
 
+def viewLgus_by_id(request):
+    lgus_id = request.GET.get('id', None)
+    lgus = LGU.objects.filter(id=lgus_id)
+    context = {}
+    if not lgus.exists():
+        context['code'] = 404
+    else:
+        context['code'] = 200
+        lgus = lgus[0]
+        context['name'] = lgus.name
+        context['description'] = lgus.description
+        context['id'] = lgus.id
+        
+        previous = LGUForm(instance=lgus)
+        context['form'] = str(previous.as_p())
+    return JsonResponse(context)
+
+def updateLGU(request):
+    if request.method != 'POST':
+        messages.error(request, "Access Denied")
+    try:
+        instance = LGU.objects.get(id=request.POST.get('id'))
+        lgu = LGUForm(request.POST or None, instance=instance)
+        lgu.save()
+        messages.success(request, "Position has been updated")
+    except:
+        messages.error(request, "Access To This Resource Denied")
+
+    return redirect(reverse('viewLgus'))
+
+
+
+
+def deleteLGU(request):
+    if request.method != 'POST':
+        messages.error(request, "Access Denied")
+    try:
+        lgu = LGU.objects.get(id=request.POST.get('id'))
+        lgu.delete()
+        messages.success(request, "Position Has Been Deleted")
+    except:
+        messages.error(request, "Access To This Resource Denied")
+
+    return redirect(reverse('viewLgus'))
+
+
+class PrintView(PDFView):
+    template_name = 'admin/print.html'
+    prompt_download = True
+
+    @property
+    def download_name(self):
+        return "result.pdf"
+
+    def get_context_data(self, *args, **kwargs):
+        title = "E-voting"
+        try:
+            file = open(settings.ELECTION_TITLE_PATH, 'r')
+            title = file.read()
+        except:
+            pass
+        context = super().get_context_data(*args, **kwargs)
+        
+        
+        
+        return context
