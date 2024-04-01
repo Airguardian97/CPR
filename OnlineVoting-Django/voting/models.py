@@ -18,6 +18,7 @@ class Voter(models.Model):
     voted = models.BooleanField(default=False)
     otp_sent = models.IntegerField(default=0)  # Control how many OTPs are sent
     lgu = models.ForeignKey(LGU, on_delete=models.CASCADE)
+    timevoted = models.DateTimeField(null=True)
     
     def __str__(self):
         return self.admin.last_name + ", " + self.admin.first_name

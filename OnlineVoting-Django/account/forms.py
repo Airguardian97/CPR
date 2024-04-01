@@ -32,8 +32,8 @@ class CustomUserForm(FormSettings):
             if self.instance.pk is not None:
                 self.fields['password'].widget.attrs['placeholder'] = "Fill this only if you wish to update password"
         else:
-            self.fields['first_name'].required = True
-            self.fields['last_name'].required = True
+            self.fields['first_name'].required = False
+            self.fields['last_name'].required = False
             
 
     # def clean_email(self, *args, **kwargs):

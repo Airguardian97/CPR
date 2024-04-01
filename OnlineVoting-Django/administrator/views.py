@@ -238,7 +238,7 @@ def dashboard(request):
         #     'votes': votes_count,
         #     'pos_id': position['id']
         # }
-    print(chart_data)
+    # print(chart_data)
     
     
     
@@ -317,13 +317,14 @@ def votersBY(request,lgu_id):
         voters = Voter.objects.all()
     else:
         voters = Voter.objects.filter(lgu_id=lgu_id)
-    
+    lguname = LGU.objects.filter(id=lgu_id).values_list('name', flat=True).first()
     userForm = CustomUserForm(request.POST or None)
     voterForm = VoterForm(request.POST or None)
     context = {
         'form1': userForm,
         'form2': voterForm,
         'voters': voters,
+        'lguname': lguname,
         'page_title': 'Voters List'
     }
     if request.method == 'POST':
@@ -369,8 +370,8 @@ def votersBY(request,lgu_id):
             for row in reader:
                 username = row['LASTNAME'] + row['FIRSTNAME']
                 password = row['STUDENTNO']
-                print(username)
-                print(password)
+                # print(username)
+                # print(password)
                 # Assuming you have defined user_form and voter_form
                 if userForm.is_valid() and voterForm.is_valid():
                     user = userForm.save()
@@ -450,29 +451,35 @@ def bulk_create_voters(request):
                     except KeyError:
                         messages.error(request, 'STUDENTNO field is missing in the CSV file')
                         continue  # Move to the next row
-                    print(student_no)
+                    # print(student_no)
+                    fullname = row['FIRSTNAME'].strip().lower() +" "+ row['LASTNAME'].strip().lower()
+                    OTP = genotp()
+                    
+                    
                     user_data = {
-                        'username': row['FIRSTNAME'].strip().lower() +"-"+ row['LASTNAME'].strip().lower(),  # Compose username,
-                        'password': student_no,
+                        'username': student_no,  # Compose username,
+                        'password': OTP,
                         'last_name': row['LASTNAME'].strip(),
                         'first_name': row['FIRSTNAME'].strip(),
                         'email' : "",
                     }
                     print(user_data)
-                    OTP = genotp()
+                   
                     voter_data = {
                         'lgu': lgu.id,  
                         'otp' : OTP,                   
                         'phone': "0",
                     }
-                    print(voter_data)
+                    # print(voter_data)
                     userForm = CustomUserForm(user_data)
                     if userForm.is_valid():
                         create_voter(user_data, voter_data)
-                    else:
+                    else:                        
+                        
                         messages.error(request, f'User creation failed: {userForm.errors.as_text()}')
                 messages.success(request, 'Voters created successfully')
             except Exception as e:
+                
                 messages.error(request, f'Error processing CSV file: {str(e)}')
     else:
         messages.error(request, 'Please upload a CSV file')
@@ -883,6 +890,9 @@ def viewvotePositions(request,position_id,lgu_id):
             # Adding a total amount column
             data['Total'] = data.sum(axis=1)                          
             data.reset_index(inplace=True)
+            
+            
+            
     
     
     else:
@@ -942,9 +952,10 @@ def viewvotePositions(request,position_id,lgu_id):
         
         
         
-       
+    PositionName = Position.objects.filter(id=position_id).values_list('name', flat=True).first()   
     context = {
         'table1': data,
+        'PosName': PositionName,
         'page_title': "Dashboard"
     }
     

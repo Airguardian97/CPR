@@ -9,15 +9,16 @@
           class="fa fa-plus"></i> Add New</a>
           <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#uploadCSVModal"><i class="fa fa-upload"></i> Upload CSV</button>
 </div>
+<div class="box-header with-border">
 <!-- Add a button to trigger printing -->
-<button onclick="printTable()" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-print"></i> Print Table</button>
 
+<button onclick="printTable()" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-print"></i> Print Table</button>
+</div>
 
 
 <!-- Add New Button -->
 {% comment %} <div class="box-header with-border">
-  <a href="#addnew" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus"></i> Add New</a> 
- 
+  <a href="#addnew" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus"></i> Add New</a>  
 </div> {% endcomment %}
 
 <div class="box-body">
@@ -25,10 +26,9 @@
     <thead style="background-color: #222D32; color:white;">
           <th>Firstname</th>
           <th>Lastname</th>
-          <th>Email</th>
-          <th>Phone</th>
+          <th>Username</th>
           <th>LGU</th>
-          <th>OTP</th>
+          <th>OTP/password</th>
           <th>Action</th>
       
       </thead>
@@ -38,16 +38,19 @@
     <tr>
       <td>{{ voter.admin.first_name }}</td>
       <td>{{ voter.admin.last_name }}</td>
-      <td>{{ voter.admin.email }}</td>
-      <td >{{ voter.phone }}</td>
+      <td>{{ voter.admin.username }}</td>
       <td>{{ voter.lgu }}</td>
       <td>
-        {% if   voter.otp %}
+        {% comment %} {% if   voter.otp %}
         &#x2713;
         {% else %}
         
-        {% endif %}
-       
+        {% endif %} {% endcomment %}
+          {% if   voter.otp %}
+          {{ voter.otp }}
+        {% else %}
+        
+        {% endif %} 
       </td>
       <td>
         <button class='btn btn-primary btn-sm edit btn-flat' data-id='{{ voter.id }}'><i class='fa fa-edit'></i> Edit</button>
@@ -232,6 +235,16 @@
               <p class="display_form">
                 
               </p>
+
+
+
+
+
+
+
+
+
+
               
 
           </div>
@@ -355,6 +368,7 @@
               $('.fullname').html(response.first_name + ' ' + response.last_name);
               $('.display_form').html(response.form);
               $('.otp').html(response.otp);
+              $('.lguname').html(response.lguname);
           }
       });
     } 
@@ -413,6 +427,16 @@
           color: white;
       }
   }
+
+
+
+
+
+
+
+
+
+  
 </style>
 
 
@@ -456,33 +480,48 @@
     function printTable() {
       var printContent = ''; // Initialize variable to store combined HTML content
       var table = $('.table').DataTable(); // Get the DataTable instance
-
+  
       // Get information about the pagination state
       var pageInfo = table.page.info();
       var totalPages = pageInfo.pages;
-
+  
       // Iterate through each page of the table
       for (var i = 0; i < totalPages; i++) {
           table.page(i).draw('page'); // Go to page i
           var pageHTML = ''; // Initialize variable to store HTML content of each page
-          // Fetch HTML content of current page
+          // Fetch HTML content of current page, excluding the action column
           $('.table tbody tr').each(function() {
-              pageHTML += $(this)[0].outerHTML; // Append each row to pageHTML
+              // Exclude the last column (action column) from the row
+              var rowHTML = $(this).clone().find('td:last').remove().end().prop('outerHTML');
+              pageHTML += rowHTML; // Append each row (excluding action column) to pageHTML
           });
           printContent += pageHTML; // Append pageHTML to printContent
       }
-
+  
       // Open a new window with the combined HTML content for printing
       var printWindow = window.open('', '', 'width=800, height=600');
-      printWindow.document.write('<html><head><title>Print Table</title></head><body><table>');
+      printWindow.document.write('<html><head><title>Print Table</title>');
+      printWindow.document.write('<style>');
+      printWindow.document.write('table { border-collapse: collapse; width: 100%; }');
+      printWindow.document.write('th, td { border: 1px solid #dddddd; text-align: left; padding: 8px;  }');
+      printWindow.document.write('tr:nth-child(even) { background-color: #f2f2f2; }');
+      printWindow.document.write('h1 {text-align: center;');
+      printWindow.document.write('</style>');
+      printWindow.document.write('</head><body>');      
+      printWindow.document.write('<h1>{% if lguname %}<div>{{ lguname }}Voters List</div>{% else %}<div>CPU Voters List</div>{% endif %}</h1>');
+      printWindow.document.write('<table>');
+
+
+
       printWindow.document.write(printContent); // Write combined HTML content to new window
       printWindow.document.write('</table></body></html>');
       printWindow.document.close();
-
+  
       // Print the content
       printWindow.print();
   }
-
+  
+  
 </script>
 
 

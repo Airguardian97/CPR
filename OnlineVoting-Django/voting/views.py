@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import JsonResponse
 import requests
 import json
+from django.utils import timezone
 # Create your views here.
 
 
@@ -228,7 +229,7 @@ def resend_otp(request):
                     str(otp) + " as your OTP"
                 message_is_sent = send_sms(phone, msg)
                 if message_is_sent:  # * OTP was sent successfully
-                    # Update how many OTP has been sent to this voter
+                    #    how many OTP has been sent to this voter
                     # Limited to Three so voters don't exhaust OTP balance
                     voter.otp_sent = voter.otp_sent + 1
                     voter.save()
@@ -497,7 +498,11 @@ def submit_ballot(request):
         return redirect(reverse('show_ballot'))
     else:
         # Update Voter profile to voted
+        voter.verified = True
         voter.voted = True
+        
+        voter.timevoted = timezone.now()
+        
         voter.save()
         messages.success(request, "Thanks for voting")
         return redirect(reverse('voterDashboard'))
