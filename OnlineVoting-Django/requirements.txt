@@ -7,4 +7,4 @@ requests
 whitenoise
 numpy
 Pandas
-Pango
+pango
