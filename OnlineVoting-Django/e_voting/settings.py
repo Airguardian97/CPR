@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '%6lp_p!%r$7t-2ql5hc5(r@)8u_fc+6@ugxcnz=h=b(fn#3$p9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*","localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*","localhost", "127.0.0.1", "cpuevoting.com", "www.cpuevoting.com","www.cpuevoting.com:8800","e335-210-23-168-187.ngrok-free.app"]
 
 
 # Application definition
