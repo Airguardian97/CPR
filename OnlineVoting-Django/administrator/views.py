@@ -24,7 +24,7 @@ def find_n_winners(data, n):
     """
     final_list = []
     candidate_data = data[:]
-    # print("Candidate = ", str(candidate_data))
+    print("Candidate = ", str(candidate_data))
     for i in range(0, n):
         max1 = 0
         if len(candidate_data) == 0:
@@ -39,9 +39,10 @@ def find_n_winners(data, n):
 
 
 class PrintView(PDFView):
+    
     template_name = 'admin/print.html'
     prompt_download = True
-
+        
     @property
     def download_name(self):
         return "result.pdf"
@@ -94,6 +95,7 @@ class PrintView(PDFView):
             # print("lgu for  ", str(LGUDT))
             # print(LGUDTData)
         # print(LGUDTData)
+        
         for id, position in enumerate(LGUDTData):
             
             candidate_data = []
@@ -121,8 +123,7 @@ class PrintView(PDFView):
             #     votes = Votes.objects.filter(candidate=candidate).count()
             #     this_candidate_data['name'] = candidate.fullname
             #     this_candidate_data['votes'] = votes
-            #     candidate_data.append(this_candidate_data)
-                
+            ##     candidate_data.append(this_candidate_data)             
                 
                
             # print("Candidate1 Data For  ", str(
@@ -134,6 +135,7 @@ class PrintView(PDFView):
                 # Check if max_vote is more than 1
                 if position["max_vote"] > 1:
                     winner = find_n_winners(candidate_data, position["max_vote"])
+          
                 else:
 
                     winner = max(candidate_data, key=lambda x: x['votes'])
@@ -1042,23 +1044,23 @@ def deleteLGU(request):
     return redirect(reverse('viewLgus'))
 
 
-class PrintView(PDFView):
-    template_name = 'admin/print.html'
-    prompt_download = True
+# class PrintView(PDFView):
+#     template_name = 'admin/print.html'
+#     prompt_download = True
 
-    @property
-    def download_name(self):
-        return "result.pdf"
+#     @property
+#     def download_name(self):
+#         return "result.pdf"
 
-    def get_context_data(self, *args, **kwargs):
-        title = "E-voting"
-        try:
-            file = open(settings.ELECTION_TITLE_PATH, 'r')
-            title = file.read()
-        except:
-            pass
-        context = super().get_context_data(*args, **kwargs)
+#     def get_context_data(self, *args, **kwargs):
+#         title = "E-voting"
+#         try:
+#             file = open(settings.ELECTION_TITLE_PATH, 'r')
+#             title = file.read()
+#         except:
+#             pass
+#         context = super().get_context_data(*args, **kwargs)
         
         
         
-        return context
+#         return context
