@@ -484,7 +484,17 @@
       // Get information about the pagination state
       var pageInfo = table.page.info();
       var totalPages = pageInfo.pages;
-  
+
+         // Fetch the table head (thead) content
+    var tableHead = $('.table thead').clone();
+
+    // Remove the last header cell
+    tableHead.find('th:last').remove();
+
+    // Get the outerHTML of the modified table head
+    tableHead = tableHead.prop('outerHTML');
+   
+
       // Iterate through each page of the table
       for (var i = 0; i < totalPages; i++) {
           table.page(i).draw('page'); // Go to page i
@@ -507,11 +517,15 @@
       printWindow.document.write('tr:nth-child(even) { background-color: #f2f2f2; }');
       printWindow.document.write('h1 {text-align: center;');
       printWindow.document.write('</style>');
-      printWindow.document.write('</head><body>');      
-      printWindow.document.write('<h1>{% if lguname %}<div>{{ lguname }}Voters List</div>{% else %}<div>CPU Voters List</div>{% endif %}</h1>');
+      printWindow.  document.write('</head><body>');      
+      printWindow.document.write('<h1>{% if lguname %}<div>{{ lguname }} Voters List</div>{% else %}<div>CPU Voters List</div>{% endif %}</h1>');
+      
+        // Write header content
+     
+
       printWindow.document.write('<table>');
 
-
+      printWindow.document.write(tableHead); // Write table head
 
       printWindow.document.write(printContent); // Write combined HTML content to new window
       printWindow.document.write('</table></body></html>');
