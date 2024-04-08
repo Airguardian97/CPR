@@ -1,0 +1,84 @@
+
+
+
+
+sudo apt update
+sudo apt install libpango-1.0-0
+
+
+sudo apt update
+sudo apt install libpangoft2-1.0-0
+
+
+cd ~/CPR/OnlineVoting-Django
+source myprojectenv/bin/activate
+
+
+cd ~/CPR/OnlineVoting-Django
+gunicorn --bind 0.0.0.0:8000 e_voting.wsgi
+
+
+source venv/bin/activate
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/CPR/OnlineVoting-Django
+ExecStart=/home/ubuntu/CPR/OnlineVoting-Django/myprojectenv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          e_voting.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+server {
+    listen 80;
+    server_name 206.189.43.192;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/CPR/OnlineVoting-Django;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+
+sudo systemctl restart nginx
+
+
+
+
+sudo chown -R root:www-data /root/CPR/OnlineVoting-Django/static
+sudo chmod -R g+r /root/CPR/OnlineVoting-Django/static
+sudo chmod -R 755 /root/CPR/OnlineVoting-Django/static
+
+chmod g+x /root/CPR/OnlineVoting-Django/static
+
+sudo chmod g+rw /root/CPR/OnlineVoting-Django/static
+
+ls -l /root/CPR/OnlineVoting-Django/static
+
+sudo addgroup root
+sudo adduser root root
+
+
+
+chmod  o+rx /home/ubuntu
+
+
+
+scp ubuntu@206.189.43.192:/home/ubuntu/CPR/OnlineVoting-Django/db.sqlite3 ~/Downloads/
