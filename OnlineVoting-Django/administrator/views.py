@@ -49,7 +49,8 @@ def find_n_winners(data, n):
         this = f"{i+1}. {this_winner['name']} with {this_winner['votes']} votes"
         final_list.append(this)
         candidate_data.remove(this_winner)
-    return "<br>".join(final_list)
+        
+    return "<br> ".join(final_list)
 
 
 class PrintView(PDFView):
