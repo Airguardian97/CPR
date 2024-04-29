@@ -18,24 +18,36 @@ import csv
 from io import TextIOWrapper
 
 
+# def find_n_winners(data, n):
+#    
+#     final_list = []
+#     candidate_data = data[:]
+#     #print("Candidate = ", str(candidate_data))
+#     for i in range(0, n):
+#         max1 = 0
+#         if len(candidate_data) == 0:
+#             continue
+#         this_winner = max(candidate_data, key=lambda x: x['votes'])
+#         # TODO: Check if None
+#         this = this_winner['name'] + \
+#             " with " + str(this_winner['votes']) + " votes"
+#         final_list.append(this)
+#         candidate_data.remove(this_winner)
+#     return ", ;<br>".join(final_list)
+
+
 def find_n_winners(data, n):
-    """Read More
-    https://www.geeksforgeeks.org/python-program-to-find-n-largest-elements-from-a-list/
-    """
     final_list = []
     candidate_data = data[:]
-    print("Candidate = ", str(candidate_data))
     for i in range(0, n):
         max1 = 0
         if len(candidate_data) == 0:
             continue
         this_winner = max(candidate_data, key=lambda x: x['votes'])
-        # TODO: Check if None
-        this = this_winner['name'] + \
-            " with " + str(this_winner['votes']) + " votes"
+        this = f"{i+1}. {this_winner['name']} with {this_winner['votes']} votes"
         final_list.append(this)
         candidate_data.remove(this_winner)
-    return ", &nbsp;".join(final_list)
+    return "<br>".join(final_list)
 
 
 class PrintView(PDFView):
@@ -131,11 +143,13 @@ class PrintView(PDFView):
             # ! Check Winner
             if len(candidate_data) < 1:
                 winner = "Position does not have candidates"
+               
             else:
                 # Check if max_vote is more than 1
                 if position["max_vote"] > 1:
                     winner = find_n_winners(candidate_data, position["max_vote"])
-          
+                    print(winner)
+                    print("NEXT POS")
                 else:
 
                     winner = max(candidate_data, key=lambda x: x['votes'])
@@ -153,6 +167,7 @@ class PrintView(PDFView):
                             winner = "Winner : " + winner['name']
             # print("Candidate Data For  ", str(
             #     position["name"]), " = ", str(candidate_data))
+           
             position_data[position["name"]] = {
                 'candidate_data': candidate_data, 'winner': winner, 'max_vote': position["max_vote"]}
         context['positions'] = position_data
@@ -863,13 +878,13 @@ def viewvotePositions(request,position_id,lgu_id):
     # Handle the case where the LGU with the specified ID does not exist
         lguid = None  # or any default value you want to assign
     
-    print(lguid)
+    #print(lguid)
     if poscat == "National":
         chart_data = {}   
 
         for candidate in Candidate.objects.filter(position=position_id):
             votes_count = 0
-            print(candidate)
+            #print(candidate)
             for lgu in LGU.objects.all():
                 votes_count = Votes.objects.all().select_related('voter','voter__lgu').filter(voter__lgu__name=lgu,candidate__fullname=candidate).count()
                         
