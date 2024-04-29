@@ -50,7 +50,7 @@ def find_n_winners(data, n):
         final_list.append(this)
         candidate_data.remove(this_winner)
         
-    return "<br> ".join(final_list)
+    return "<br>()".join(final_list)
 
 
 class PrintView(PDFView):
