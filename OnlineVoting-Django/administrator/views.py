@@ -610,7 +610,7 @@ def viewPositions(request):
             messages.error(request, "Form errors")
     return render(request, "admin/positions.html", context)
 
- 
+
 def updatePosition(request):
     if request.method != 'POST':
         messages.error(request, "Access Denied")
