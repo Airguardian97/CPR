@@ -167,8 +167,9 @@ AUTH_USER_MODEL = 'acc.CustomUser'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '850437372061-ebnf96svh3p387ciekeh9upgvgni9381.apps.googleusercontent.com',
-            'secret': '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',
+            
+              'client_id': '',
+            'secret': '',
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
