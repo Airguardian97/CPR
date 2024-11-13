@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import CustomUser
+from acc.models import CustomUser
 # Create your models here.
 
 class LGU(models.Model):

@@ -1,6 +1,8 @@
 {% extends "voting/base.html" %}
 {% block content %}
+{% load socialaccount %}
 {% load static %}
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 <style>
   * {
@@ -111,71 +113,74 @@
   form .signup-link a:hover {
     text-decoration: underline;
   }
+  .google-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #34a853;  /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;  /* Centers the button horizontally */
+    display: block;  /* Make it a block element for centering */
+    text-align: center;  /* Center the text */
+}
+
+.google-btn:hover {
+    background-color: #2c8a47;  /* Darker green on hover */
+}
+
+.google-btn svg {
+    width: 20px;  /* Adjust size of the logo */
+    height: 20px;
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.google-btn span {
+    margin-left: 10px;
+}
+
 </style>
 
-    {% comment %} <div class="login-box">
-        <div class="login-logo">
-            <b>Voting System</b>
-        </div>
+<div class="container">
+  <div class="wrapper">
+    <div class="title">
+      <img src="{% static 'logo/comelec_logo.png' %}" width="80" height="80">
+      <br><br><br><br>
+      <span>Login</span>
+    </div>
+    <form action="{% url 'account_login' %}" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <i class="fas fa-user"></i>
+        <input type="text" class="form-control" name="username" placeholder="username" required>
+      </div>
+      <div class="row">
+        <i class="fas fa-lock"></i>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+      </div>
+      <div class="row button">
+        <input type="submit" value="Login">
+      </div>
 
-        <div class="login-box-body">
-            <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+      <a href="{% provider_login_url 'google' %}" class="google-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+          <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+        </svg>
+        <span class="ms-2 fs-6">Login with Google</span>
+      </a>
 
-            <form action="{% url 'account_login' %}" method="POST">
-                {% csrf_token %}
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="username" placeholder="username" required>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="login-box-body">
-                        <button type="submit" class="btn btn-success btn-block btn-flat" name="login"><i
-                                class="fa fa-sign-in"></i> Log In</button>
-                    </div>
-                    <div class="pull-right col-xs-4">
-                        <a  class="btn btn-warning btn-block btn-flat" href="{% url 'account_register' %}"><i class="fa fa-user-plus"></i> Register</a>
-                    </div> 
-                </div>
-            </form>
-        </div>
-            </div> {% endcomment %}
 
-            <div class="container">
-              
-                <div class="wrapper">
-                  <div class="title">
-                    
-                      <img src="{% static 'logo/comelec_logo.png' %}" width="80" height="80">
-                    
-                    <br>  <br>   <br>   <br>
-                    <span>Login </span>
-                   
-                  </div>
-                  
-                  <form action="{% url 'account_login' %}" method="POST">
-                    {% csrf_token %}
-                    
-                    <div class="row">
-                      <i class="fas fa-user"></i>
-                      <input type="text" class="form-control" name="username" placeholder="username" required>
-                      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    </div>
-                    <div class="row">
-                      <i class="fas fa-lock"></i>
-                      <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    
-                    <div class="row button">
-                      <input type="submit" value="Login">
-                    </div>
-                    {% comment %} <div class="signup-link">Not a member? <a href="#">Signup now</a></div> {% endcomment %}
-                  </form>
-                </div>
-              </div>
+    </form>
 
-{% endblock content %} 
+    
+
+
+    </a>
+  </div>
+</div>
+
+{% endblock content %}

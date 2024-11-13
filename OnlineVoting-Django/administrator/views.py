@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from voting.models import Voter, Position, Candidate, Votes
-from account.models import CustomUser
-from account.forms import CustomUserForm
+from acc.models import CustomUser
+from acc.forms import CustomUserForm
 from voting.forms import *
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -480,7 +480,7 @@ def bulk_create_voters(request):
                         'password': OTP,
                         'last_name': row['LASTNAME'].strip(),
                         'first_name': row['FIRSTNAME'].strip(),
-                        'email' : "",
+                        'email' : row['EMAIL'].strip(),
                     }
                     print(user_data)
                    

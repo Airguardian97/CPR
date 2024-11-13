@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from account.views import account_login
+from acc.views import account_login
 from .models import Position, Candidate, Voter, Votes
 from django.http import JsonResponse
 from django.utils.text import slugify
@@ -174,7 +174,9 @@ def generate_otp():
 
 
 def dashboard(request):
+    
     user = request.user
+    print(user)
     # * Check if this voter has been verified
     if user.voter.otp is None or user.voter.verified == False:
         if not settings.SEND_OTP:

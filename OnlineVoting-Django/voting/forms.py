@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from account.forms import FormSettings
+from acc.forms import FormSettings
 
 
 class VoterForm(FormSettings):

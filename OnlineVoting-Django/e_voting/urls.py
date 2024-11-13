@@ -16,11 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 from . import settings
+from allauth.socialaccount.providers.google.views import OAuth2LoginView
+
 
 urlpatterns = [
-    path('', include('account.urls')),
-    path('account/', include('account.urls')),
+    path('', include('acc.urls')),
+    path('accounts/', include('allauth.urls')),
+    # path('accounts/google/login/', OAuth2LoginView.as_view(), name='google_login'),
+    # path('login', TemplateView.as_view(template_name='account/login.html'), name="login"),
+    path('acc/', include('acc.urls')),
     path('admin/', admin.site.urls),
     path('administrator/', include('administrator.urls')),
     path('voting/', include('voting.urls')),
