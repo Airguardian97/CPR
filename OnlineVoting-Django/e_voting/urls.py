@@ -22,14 +22,22 @@ from allauth.socialaccount.providers.google.views import OAuth2LoginView
 
 
 urlpatterns = [
-    path('', include('acc.urls')),
+    # Include account-related URLs
+    path('', include('acc.urls')),  # If you want 'acc.urls' at the root URL
+
+    # Include allauth URLs for authentication
     path('accounts/', include('allauth.urls')),
-    # path('accounts/google/login/', OAuth2LoginView.as_view(), name='google_login'),
-    # path('login', TemplateView.as_view(template_name='account/login.html'), name="login"),
-    path('acc/', include('acc.urls')),
+
+    # Django admin panel
     path('admin/', admin.site.urls),
+    path('acc.', include('acc.urls')), 
+    # Include custom URLs for other apps
     path('administrator/', include('administrator.urls')),
     path('voting/', include('voting.urls')),
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# Add media files serving in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

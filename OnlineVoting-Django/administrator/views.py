@@ -611,6 +611,8 @@ def updateVoter(request):
 
 
 def deleteVoter(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -624,6 +626,8 @@ def deleteVoter(request):
 
 
 def passVoter(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -636,6 +640,8 @@ def passVoter(request):
     return redirect(reverse('adminViewVoters'))
 
 def viewPositions(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     positions = Position.objects.order_by('-priority').all()
     form = PositionForm(request.POST or None)
     context = {
@@ -655,6 +661,8 @@ def viewPositions(request):
 
 
 def updatePosition(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -673,6 +681,8 @@ def updatePosition(request):
 
 
 def deletePosition(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -686,6 +696,8 @@ def deletePosition(request):
 
 
 def viewCandidates(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     candidates = Candidate.objects.all()
     form = CandidateForm(request.POST or None, request.FILES or None)
     context = {
@@ -703,6 +715,8 @@ def viewCandidates(request):
 
 
 def updateCandidate(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -722,6 +736,8 @@ def updateCandidate(request):
 
 
 def deleteCandidate(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -735,6 +751,8 @@ def deleteCandidate(request):
 
 
 def view_candidate_by_id(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     candidate_id = request.GET.get('id', None)
     candidate = Candidate.objects.filter(id=candidate_id)
     context = {}
@@ -758,6 +776,7 @@ def ballot_position(request):
 
 
 def update_ballot_position(request, position_id, up_or_down):
+    
     try:
         context = {
             'error': False
@@ -811,6 +830,8 @@ def ballot_title(request):
 
 
 def viewVotes(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     votes = Votes.objects.all()
     context = {
         'votes': votes,
@@ -820,6 +841,8 @@ def viewVotes(request):
 
 
 def resetVote(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     Votes.objects.all().delete()
     Voter.objects.all().update(voted=False, verified=True)
     messages.success(request, "All votes has been reset")
@@ -830,6 +853,8 @@ def resetVote(request):
 
 
 def OTPgen(request) : 
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     voter_id = request.GET.get('id', None)
     voter = Voter.objects.filter(id=voter_id)
     context = {}
@@ -858,6 +883,8 @@ def OTPgen(request) :
     return JsonResponse(context)
 
 def genotp():
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     OTP = ""
     string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     varlen = len(string)
@@ -867,6 +894,8 @@ def genotp():
 
 
 def OTPsave(request) : 
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
         
         
         
@@ -883,6 +912,8 @@ def OTPsave(request) :
     # which stores all alpha-numeric characters    
     
 def viewvotePositions(request,position_id,lgu_id):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     
     positions = Position.objects.all().order_by('priority')
     candidates = Candidate.objects.all()
@@ -1022,6 +1053,8 @@ def viewvotePositions(request,position_id,lgu_id):
    
 
 def viewLgus(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     lgus = LGU.objects.order_by('-priority').all()
     form = LGUForm(request.POST or None)
     context = {
@@ -1042,6 +1075,8 @@ def viewLgus(request):
  
 
 def viewLgus_by_id(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     lgus_id = request.GET.get('id', None)
     lgus = LGU.objects.filter(id=lgus_id)
     context = {}
@@ -1059,6 +1094,8 @@ def viewLgus_by_id(request):
     return JsonResponse(context)
 
 def updateLGU(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
@@ -1075,6 +1112,8 @@ def updateLGU(request):
 
 
 def deleteLGU(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:

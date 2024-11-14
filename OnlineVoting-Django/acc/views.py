@@ -6,7 +6,7 @@ from voting.forms import VoterForm, Voter
 from django.contrib.auth import login, logout
 from django.utils import timezone
 # Create your views here.
-
+from django.conf import settings
 
 def account_login(request):
     if request.user.is_authenticated:

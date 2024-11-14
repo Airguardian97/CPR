@@ -63,6 +63,8 @@ def generate_ballot(userTp,userlgu,display_controls=False):
                             input_box = '<input value="'+str(candidate.id)+'" type="radio" class="flat-red ' + \
                                 position_name+'" name="'+position_name+'">'
                         image = "/media/" + str(candidate.photo)
+                        print(image)
+                        print(image)
                         candidates_data = candidates_data + '<li>' + input_box + '<button type="button" class="btn btn-primary btn-sm btn-flat clist platform" data-fullname="'+candidate.fullname+'" data-bio="'+candidate.bio+'"><i class="fa fa-search"></i> Platform</button><img src="' + \
                             image+'" height="100px" width="100px" class="clist"><span class="cname clist">' + \
                             candidate.fullname +'</span></li>'
@@ -311,9 +313,7 @@ def verify_otp(request):
 def show_ballot(request):
     userTp = request.user.user_type
     #userlgu  =  "1"
-    
-    
-    
+          
     
     voter_id = request.user.id
     voter = Voter.objects.filter(admin_id=voter_id)

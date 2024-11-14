@@ -23,20 +23,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '%6lp_p!%r$7t-2ql5hc5(r@)8u_fc+6@ugxcnz=h=b(fn#3$p9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# DEBUG_PROPAGATE_EXCEPTIONS = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = ["*","localhost","172.16.1.15", "127.0.0.1", "cpuevoting.com", "www.cpuevoting.com","www.cpuevoting.com:8800","e335-210-23-168-187.ngrok-free.app"]
+
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  
+    
     'django.contrib.staticfiles',
 
     'allauth',
@@ -51,7 +55,7 @@ INSTALLED_APPS = [
     
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [    
     'django.middleware.security.SecurityMiddleware',
      'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -147,20 +151,48 @@ USE_L10N = True
 USE_THOUSAND_SEPARATOR = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/3.1/howto/static-files/
+# # Static files (CSS, JavaScript, images)
+# STATIC_URL = '/static/'
+
+# # Define additional directories to search for static files (e.g., for custom static files in 'static' folder)
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),  # Your static files directory
+# ]
+
+# # This is where the collected static files will be stored for production (e.g., for 'collectstatic')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# # Using Whitenoise for static file serving in production
+# # It allows Django to serve static files efficiently in production
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# # Whitenoise settings (optional, for extra configuration of file handling, compression, etc.)
+# # Add this to enable caching and compression of static files
+# WHITENOISE_MAX_AGE = 31536000  # One year in seconds (caching duration for static files)
+# WHITENOISE_USE_FINDERS = True  # Enable finding files using Django's staticfinders
+
+# # Media files (uploads from users, etc.)
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Define the root folder for media (uploads)
 
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if DEBUG:
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+else:
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+
+
+
 
 AUTH_USER_MODEL = 'acc.CustomUser'
 
@@ -211,3 +243,24 @@ ELECTION_TITLE_PATH = os.path.join(
     BASE_DIR, 'election_title.txt')  # Election Title File
 
 SEND_OTP = False  # If you toggle this to False, Kindly use 0000 as your OTP
+
+
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
