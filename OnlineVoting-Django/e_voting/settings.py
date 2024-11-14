@@ -105,13 +105,14 @@ DATABASES = {
         'NAME': 'e_voting',  # Replace with your actual database name
         'USER': 'sa',      # XAMPP uses 'root' by default for MySQL
         'PASSWORD': 'p@ssw0rd',      # XAMPP's MySQL 'root' user has no password by default, but add one if you’ve set it
-        'HOST': '172.16.1.15', # This points to your local MySQL server in XAMPP
+        'HOST': 'localhost', # This points to your local MySQL server in XAMPP
         'PORT': '3306',      # Default MySQL port in XAMPP
     }
 
 
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -167,9 +168,8 @@ AUTH_USER_MODEL = 'acc.CustomUser'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            
-              'client_id': '',
-            'secret': '',
+            'client_id': '850437372061-ebnf96svh3p387ciekeh9upgvgni9381.apps.googleusercontent.com',
+            'secret': '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',
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},

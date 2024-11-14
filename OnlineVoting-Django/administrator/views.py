@@ -39,6 +39,8 @@ from io import TextIOWrapper
 
 
 def find_n_winners(data, n):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
     final_list = []
     candidate_data = data[:]
     for i in range(0, n):
@@ -53,7 +55,7 @@ def find_n_winners(data, n):
 
 
 class PrintView(PDFView):
-    
+
     template_name = 'admin/print.html'
     prompt_download = True
         
@@ -180,8 +182,15 @@ class PrintView(PDFView):
 
 
 def dashboard(request):
+    
+    
     LGUDTData = []
     counter = 1  # Initialize a counter variable
+
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+
+
 
     for position2 in Position.objects.all().order_by('priority'):
         LGUDT = {}
@@ -304,6 +313,9 @@ def dashboard(request):
 
 
 def voters(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+        
     voters = Voter.objects.all()
     userForm = CustomUserForm(request.POST or None)
     voterForm = VoterForm(request.POST or None)
@@ -417,6 +429,9 @@ def votersBY(request,lgu_id):
     return render(request, 'admin/bulk_create_voters.html')
 
 def create_voter(user_data, voter_data):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+            
     user = CustomUserForm(user_data).save(commit=False)
     user.save()
     
@@ -437,7 +452,9 @@ def create_voter(user_data, voter_data):
     
 
 def bulk_create_voters(request):
-    
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+            
     
     voters = Voter.objects.all()
     userForm = CustomUserForm(request.POST or None)
@@ -507,6 +524,9 @@ def bulk_create_voters(request):
 
 
 def view_voter_by_id(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+        
     voter_id = request.GET.get('id', None)
     voter = Voter.objects.filter(id=voter_id)
     context = {}
@@ -530,6 +550,9 @@ def view_voter_by_id(request):
 
 
 def view_position_by_id(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+        
     pos_id = request.GET.get('id', None)
     pos = Position.objects.filter(id=pos_id)
     context = {}
@@ -548,6 +571,9 @@ def view_position_by_id(request):
 
 
 def updateVoter(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+        
     if request.method != 'POST':
         messages.error(request, "Access Denied")
     try:
