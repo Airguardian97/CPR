@@ -1152,3 +1152,155 @@ Traceback (most recent call last):
           ^^^^^^^^^^
 NameError: name 'MEDIA_ROOT' is not defined
 "GET / HTTP/1.1" 500 72697
+Internal Server Error: /accounts/google/login/callback/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 35, in pre_social_login
+    voting_status = Voter.objects.get(admin_id=user)
+                    ^^^^^
+NameError: name 'Voter' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 154, in dispatch
+    return complete_social_login(request, login)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\helpers.py", line 67, in complete_social_login
+    return flows.login.complete_login(request, sociallogin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 46, in complete_login
+    pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 38, in pre_social_login
+    get_adapter().pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 49, in pre_social_login
+    except Voter.DoesNotExist:
+           ^^^^^
+NameError: name 'Voter' is not defined
+"GET /accounts/google/login/callback/?state=txRw3LOu2XKaHUBl&code=4%2F0AeanS0aB_xMLZBzLL5aPYCik_z44vQIhH9IjFBqQuXq-VhRNpV_0NDERMNPoD2x9dZLv7Q&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=1&prompt=consent HTTP/1.1" 500 145
+Internal Server Error: /accounts/google/login/callback/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 35, in pre_social_login
+    voting_status = Voter.objects.get(admin_id=user)
+                    ^^^^^
+NameError: name 'Voter' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 154, in dispatch
+    return complete_social_login(request, login)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\helpers.py", line 67, in complete_social_login
+    return flows.login.complete_login(request, sociallogin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 46, in complete_login
+    pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 38, in pre_social_login
+    get_adapter().pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 49, in pre_social_login
+    except Voter.DoesNotExist:
+           ^^^^^
+NameError: name 'Voter' is not defined
+"GET /accounts/google/login/callback/?state=53HYpBNYjMotJSe4&code=4%2F0AeanS0abb7FLiYRRI-wfEROxqHwl-zVRWhkZgXGXk7OzOGKSHLheqU9AKc_geSMO2R7Wrg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=1&prompt=consent HTTP/1.1" 500 110154
+Internal Server Error: /accounts/google/login/callback/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 154, in dispatch
+    return complete_social_login(request, login)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\helpers.py", line 67, in complete_social_login
+    return flows.login.complete_login(request, sociallogin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 46, in complete_login
+    pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 38, in pre_social_login
+    get_adapter().pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 40, in pre_social_login
+    time_since_vote = timezone.now() - voting_status.timevoted
+                      ^^^^^^^^
+NameError: name 'timezone' is not defined
+"GET /accounts/google/login/callback/?state=9FS80ZgqitAm0TnF&code=4%2F0AeanS0bradCnhwPZLdqNhPZT1Ca-ZUOj_s6DhnCQRpHNUfPt4RM8ermfV8DFVGAEhFu0cg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=1&prompt=consent HTTP/1.1" 500 104622
+Internal Server Error: /accounts/google/login/callback/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 154, in dispatch
+    return complete_social_login(request, login)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\helpers.py", line 67, in complete_social_login
+    return flows.login.complete_login(request, sociallogin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 46, in complete_login
+    pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\internal\flows\login.py", line 38, in pre_social_login
+    get_adapter().pre_social_login(request, sociallogin)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 47, in pre_social_login
+    login(request, user, backend='acc.email_backend.EmailBackend')
+    ^^^^^
+NameError: name 'login' is not defined
+"GET /accounts/google/login/callback/?state=DLEEX0dqwkudJHnZ&code=4%2F0AeanS0apXYDUOvQdsIVsLwUcdq6dmsux5HHXLr2RWpWesU7ZOoAN1PV0NsnhG_4clEeTuA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=1&prompt=consent HTTP/1.1" 500 104710
+Internal Server Error: /voting/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 183, in dashboard
+    if user.voter.otp is None or user.voter.verified == False:
+       ^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'voter'
+"GET /voting/dashboard/ HTTP/1.1" 500 77590
+Internal Server Error: /voting/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 183, in dashboard
+    if user.voter.otp is None or user.voter.verified == False:
+       ^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'voter'
+"GET /voting/dashboard/ HTTP/1.1" 500 76975
