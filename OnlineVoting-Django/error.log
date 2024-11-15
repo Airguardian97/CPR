@@ -1304,3 +1304,183 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'AnonymousUser' object has no attribute 'voter'
 "GET /voting/dashboard/ HTTP/1.1" 500 76975
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\views.py", line 59, in account_login
+    return render(request, "voting/login.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\templatetags\socialaccount.py", line 20, in provider_login_url
+    adapter = get_adapter()
+              ^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 378, in get_adapter
+    return import_attribute(app_settings.ADAPTER)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\utils.py", line 145, in import_attribute
+    ret = getattr(importlib.import_module(pkg), attr)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 55
+    else
+        ^
+SyntaxError: expected ':'
+"GET / HTTP/1.1" 500 212866
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\views.py", line 59, in account_login
+    return render(request, "voting/login.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\templatetags\socialaccount.py", line 20, in provider_login_url
+    adapter = get_adapter()
+              ^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 378, in get_adapter
+    return import_attribute(app_settings.ADAPTER)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\utils.py", line 145, in import_attribute
+    ret = getattr(importlib.import_module(pkg), attr)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\acc\adapter.py", line 55
+    else
+        ^
+SyntaxError: expected ':'
+"GET / HTTP/1.1" 500 212592

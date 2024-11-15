@@ -48,11 +48,12 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                     else:
                         if user:
                             sociallogin.user = user  # Link the existing user
+                            
                         else:
                             messages.error(request, "No account found with this email.")
                             raise ImmediateHttpResponse(redirect('account_login'))  # Redirect to login page
-
-                # sociallogin.user = user  # Link the existing user
+                else:
+                    sociallogin.user = user  # Link the existing user
 
             except CustomUser.DoesNotExist:
                 # Handle the case where the Voter record doesn't exist
