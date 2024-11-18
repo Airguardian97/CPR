@@ -152,8 +152,8 @@ class PrintView(PDFView):
                 # Check if max_vote is more than 1
                 if position["max_vote"] > 1:
                     winner = find_n_winners(candidate_data, position["max_vote"])
-                    print(winner)
-                    print("NEXT POS")
+                    # print(winner)
+                    # print("NEXT POS")
                 else:
 
                     winner = max(candidate_data, key=lambda x: x['votes'])

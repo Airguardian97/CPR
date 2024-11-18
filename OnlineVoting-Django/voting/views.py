@@ -9,6 +9,7 @@ from django.http import JsonResponse
 import requests
 import json
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -174,7 +175,7 @@ def generate_otp():
         otp += str(r.randint(1, 9))
     return otp
 
-
+@login_required(login_url='account_login')
 def dashboard(request):
     
     user = request.user
@@ -310,6 +311,7 @@ def verify_otp(request):
     return redirect(reverse('show_ballot'))
 
 
+@login_required(login_url='account_login')
 def show_ballot(request):
     userTp = request.user.user_type
     #userlgu  =  "1"

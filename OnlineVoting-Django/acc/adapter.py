@@ -40,7 +40,7 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                 if voting_status.voted == 1:
                     # Check if 30 minutes have passed since voting
                     time_since_vote = timezone.now() - voting_status.timevoted
-                    print("Total is", time_since_vote.total_seconds() < 30 * 60)
+                    # print("Total is", time_since_vote.total_seconds() < 30 * 60)
                     if time_since_vote.total_seconds() > 30 * 60:
                         
                         messages.error(request, "Your account is now disabled as 30 minutes have passed since you voted.")
