@@ -529,6 +529,8 @@ def view_voter_by_id(request):
         
     voter_id = request.GET.get('id', None)
     voter = Voter.objects.filter(id=voter_id)
+
+    print(voter_id)
     context = {}
     if not voter.exists():
         context['code'] = 404

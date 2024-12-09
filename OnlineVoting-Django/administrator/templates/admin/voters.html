@@ -28,6 +28,7 @@
           <th>Lastname</th>
           <th>Username</th>
           <th>LGU</th>
+          <th>email</th>
           <th>OTP/password</th>
           <th>Action</th>
       
@@ -40,6 +41,7 @@
       <td>{{ voter.admin.last_name }}</td>
       <td>{{ voter.admin.username }}</td>
       <td>{{ voter.lgu }}</td>
+      <td>{{ voter.admin.email }}</td>
       <td>
         {% comment %} {% if   voter.otp %}
         &#x2713;
@@ -204,7 +206,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><b>Edit Candidate</b></h4>
+            <h4 class="modal-title"><b>Edit Voters</b></h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal" enctype="multipart/form-data" method="POST" action="{% url 'updateVoter' %}">
@@ -225,12 +227,19 @@
             </div>
 
             <div class="form-group">
-              <label for="edit_username" class="col-sm-3 control-label">Email</label>
+              <label for="edit_username" class="col-sm-3 control-label">Username</label>
 
               <div class="col-sm-9">
                 <input type="username" class="form-control" id="edit_username" name="username">
               </div>
           </div>
+          <div class="form-group">
+            <label for="edit_email" class="col-sm-3 control-label">Email</label>
+
+            <div class="col-sm-9">
+              <input type="email" class="form-control" id="edit_email" name="email">
+            </div>
+        </div>
               <input type="hidden" class="id" name="id">
               <p class="display_form">
                 
@@ -364,6 +373,7 @@
               $('#edit_lastname').val(response.last_name);
               $('#edit_phone').val(response.phone);
               $('#edit_username').val(response.username);
+              $('#edit_email').val(response.email);
               $('#password').val(response.password);
               $('.fullname').html(response.first_name + ' ' + response.last_name);
               $('.display_form').html(response.form);
