@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '%6lp_p!%r$7t-2ql5hc5(r@)8u_fc+6@ugxcnz=h=b(fn#3$p9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # DEBUG_PROPAGATE_EXCEPTIONS = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','aims.dns-dynamic.net','aims.dns-dynamic.net','165.154.233.152']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','aims.dns-dynamic.net','aims.dns-dynamic.net','165.154.233.152','cpurv2.cloudns.be']
 
 
 
