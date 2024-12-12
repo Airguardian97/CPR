@@ -33,8 +33,9 @@ def generate_ballot(userTp,userlgu,display_controls=False):
         name = position.name
         position_name = slugify(name)
         candidates = Candidate.objects.filter(position=position)
+        # print(candidates)
         for candidate in candidates:
-            
+            print(candidate.id,position.cat)
             if userTp == "1":
                 
                 if position.max_vote > 1:
@@ -48,6 +49,8 @@ def generate_ballot(userTp,userlgu,display_controls=False):
                     input_box = '<input value="'+str(candidate.id)+'" type="radio" class="flat-red ' + \
                         position_name+'" name="'+position_name+'">'
                 image = "/media/" + str(candidate.photo)
+                
+                # print(image)
                 candidates_data = candidates_data + '<li>' + input_box + '<button type="button" class="btn btn-primary btn-sm btn-flat clist platform" data-fullname="'+candidate.fullname+'" data-bio="'+candidate.bio+'"><i class="fa fa-search"></i> Platform</button><img src="' + \
                     image+'" height="100px" width="100px" class="clist"><span class="cname clist">' + \
                     candidate.fullname+'</span></li>'
@@ -64,20 +67,22 @@ def generate_ballot(userTp,userlgu,display_controls=False):
                             input_box = '<input value="'+str(candidate.id)+'" type="radio" class="flat-red ' + \
                                 position_name+'" name="'+position_name+'">'
                         image = "/media/" + str(candidate.photo)
-                        print(image)
-                        print(image)
+                     
                         candidates_data = candidates_data + '<li>' + input_box + '<button type="button" class="btn btn-primary btn-sm btn-flat clist platform" data-fullname="'+candidate.fullname+'" data-bio="'+candidate.bio+'"><i class="fa fa-search"></i> Platform</button><img src="' + \
                             image+'" height="100px" width="100px" class="clist"><span class="cname clist">' + \
                             candidate.fullname +'</span></li>'
                     else:
-                            
-                        if userlgu == candidate.lgu_id:
+                        # print(type(userlgu), userlgu)
+                        # print(type(candidate.lgu_id), candidate.lgu_id)
+                        if userlgu == str(candidate.lgu_id):
+                            # print(userlgu, candidate.lgu_id)
                             if position.max_vote > 1:
                                 instruction = "You may select up to " + \
                                     str(position.max_vote) + " candidates"
                                 input_box = '<input type="checkbox" value="'+str(candidate.id)+ '" class="flat-red ' + \
                                     position_name+'" name="' + \
                                     position_name+"[]" + '">'
+                            
                             else:
                                 instruction = "Select only one candidate"
                                 input_box = '<input value="'+str(candidate.id)+'" type="radio" class="flat-red ' + \
@@ -129,6 +134,7 @@ def generate_ballot(userTp,userlgu,display_controls=False):
         position.save()
         num = num + 1
         candidates_data = ''
+        
     return output
 
 

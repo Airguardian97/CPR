@@ -2453,3 +2453,98 @@ Traceback (most recent call last):
                        ^^^^^^^^^^^
 AttributeError: 'Voter' object has no attribute 'email'
 "GET /administrator/voters/view?id=5 HTTP/1.1" 500 145
+Internal Server Error: /voting/ballot/vote
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 347, in show_ballot
+    ballot = generate_ballot(userTp,userlgu,display_controls=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 36, in generate_ballot
+    print(candidate)
+          ^^^^^^^^^
+UnboundLocalError: cannot access local variable 'candidate' where it is not associated with a value
+"GET /voting/ballot/vote HTTP/1.1" 500 145
+Internal Server Error: /voting/ballot/vote
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 347, in show_ballot
+    ballot = generate_ballot(userTp,userlgu,display_controls=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 36, in generate_ballot
+    print(candidate)
+          ^^^^^^^^^
+UnboundLocalError: cannot access local variable 'candidate' where it is not associated with a value
+"GET /voting/ballot/vote HTTP/1.1" 500 145
+Internal Server Error: /voting/ballot/vote
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 349, in show_ballot
+    ballot = generate_ballot(userTp,userlgu,display_controls=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 76, in generate_ballot
+    if userlgu.lgu_id == candidate.lgu_id:
+       ^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'lgu_id'
+"GET /voting/ballot/vote HTTP/1.1" 500 89173
+Internal Server Error: /voting/ballot/vote
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 349, in show_ballot
+    ballot = generate_ballot(userTp,userlgu,display_controls=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 76, in generate_ballot
+    if userlgu.lgu_id == candidate.lgu_id:
+       ^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'lgu_id'
+"GET /voting/ballot/vote HTTP/1.1" 500 89175
+Internal Server Error: /voting/ballot/vote
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 349, in show_ballot
+    ballot = generate_ballot(userTp,userlgu,display_controls=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\voting\views.py", line 76, in generate_ballot
+    if userlgu.lgu_id == candidate.lgu_id:
+       ^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'lgu_id'
+"GET /voting/ballot/vote HTTP/1.1" 500 89175
