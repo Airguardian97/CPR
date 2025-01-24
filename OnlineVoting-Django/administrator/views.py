@@ -16,7 +16,8 @@ import numpy as np
 import pandas as pd
 import csv
 from io import TextIOWrapper
-
+# from django.contrib.auth.decorators import user_passes_test
+# from django.utils.decorators import method_decorator
 
 
 
@@ -39,8 +40,9 @@ from io import TextIOWrapper
 
 
 def find_n_winners(data, n):
-    if not request.user.is_superuser:
-        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+    
+    # if not request.user.is_superuser:
+    #     return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
     final_list = []
     candidate_data = data[:]
     for i in range(0, n):
@@ -53,17 +55,21 @@ def find_n_winners(data, n):
         candidate_data.remove(this_winner)
     return "<br>".join(final_list)
 
-
-class PrintView(PDFView):
-
+# @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
+class PrintView(PDFView):    
     template_name = 'admin/print.html'
     prompt_download = True
         
     @property
     def download_name(self):
         return "result.pdf"
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return redirect('voterDashboard')  # Redirect non-superusers
+        return super().dispatch(request, *args, **kwargs)    
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs):      
         title = "E-voting"
         try:
             file = open(settings.ELECTION_TITLE_PATH, 'r')
@@ -429,8 +435,8 @@ def votersBY(request,lgu_id):
     return render(request, 'admin/bulk_create_voters.html')
 
 def create_voter(user_data, voter_data):
-    if not request.user.is_superuser:
-        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+    # if not request.user.is_superuser:
+    #     return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
             
     user = CustomUserForm(user_data).save(commit=False)
     user.save()
@@ -465,6 +471,7 @@ def bulk_create_voters(request):
         'voters': voters,
         'page_title': 'Voters List'
     }
+    
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
         if not csv_file.name.endswith('.csv'):
@@ -484,13 +491,16 @@ def bulk_create_voters(request):
                     
                     try:
                         student_no = str(row['STUDENTNO']).strip().lower()
+                        
                     except KeyError:
                         messages.error(request, 'STUDENTNO field is missing in the CSV file')
                         continue  # Move to the next row
                     # print(student_no)
-                    fullname = row['FIRSTNAME'].strip().lower() +" "+ row['LASTNAME'].strip().lower()
-                    OTP = genotp()
                     
+                    fullname = row['FIRSTNAME'].strip().lower() +" "+ row['LASTNAME'].strip().lower()
+                    
+                    OTP = genotp()
+                   
                     
                     user_data = {
                         'username': student_no,  # Compose username,
@@ -500,16 +510,19 @@ def bulk_create_voters(request):
                         'email' : row['EMAIL'].strip(),
                     }
                     print(user_data)
-                   
+                    
                     voter_data = {
                         'lgu': lgu.id,  
                         'otp' : OTP,                   
                         'phone': "0",
                     }
-                    # print(voter_data)
+                    print(voter_data)
                     userForm = CustomUserForm(user_data)
+                    
                     if userForm.is_valid():
+                        
                         create_voter(user_data, voter_data)
+                        
                     else:                        
                         
                         messages.error(request, f'User creation failed: {userForm.errors.as_text()}')
@@ -885,8 +898,6 @@ def OTPgen(request) :
     return JsonResponse(context)
 
 def genotp():
-    if not request.user.is_superuser:
-        return redirect('voterDashboard')
     OTP = ""
     string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     varlen = len(string)

@@ -2548,3 +2548,90 @@ Traceback (most recent call last):
        ^^^^^^^^^^^^^^
 AttributeError: 'str' object has no attribute 'lgu_id'
 "GET /voting/ballot/vote HTTP/1.1" 500 89175
+Internal Server Error: /administrator/votes/print/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 158, in get
+    return self.render(
+           ^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 147, in render
+    helpers.render_pdf(
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\helpers.py", line 123, in render_pdf
+    html = select_template(template).render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 57, in render
+    context = make_context(
+              ^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\context.py", line 286, in make_context
+    raise TypeError(
+TypeError: context must be a dict rather than HttpResponseRedirect.
+"GET /administrator/votes/print/ HTTP/1.1" 500 100575
+Internal Server Error: /administrator/votes/print/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 158, in get
+    return self.render(
+           ^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 147, in render
+    helpers.render_pdf(
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\helpers.py", line 123, in render_pdf
+    html = select_template(template).render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 57, in render
+    context = make_context(
+              ^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\context.py", line 286, in make_context
+    raise TypeError(
+TypeError: context must be a dict rather than HttpResponseRedirect.
+"GET /administrator/votes/print/ HTTP/1.1" 500 100575
+Internal Server Error: /administrator/votes/print/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 158, in get
+    return self.render(
+           ^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\views.py", line 147, in render
+    helpers.render_pdf(
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django_renderpdf\helpers.py", line 123, in render_pdf
+    html = select_template(template).render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 57, in render
+    context = make_context(
+              ^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\context.py", line 286, in make_context
+    raise TypeError(
+TypeError: context must be a dict rather than HttpResponseRedirect.
+"GET /administrator/votes/print/ HTTP/1.1" 500 100575

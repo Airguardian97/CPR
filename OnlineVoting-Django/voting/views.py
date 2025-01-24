@@ -158,10 +158,10 @@ def fetch_ballot(request):
         context['phone'] = voter.phone
         context['id'] = voter.id
         context['email'] = voter.admin.email
-        userlgu = "1"
+        str(voter.lgu_id)
         #
         #context['lgu'] =  voter.lgu
-    
+        # print("asdfsfssfsfsdf",userlgu)
           
     userTp = request.user.user_type
     
