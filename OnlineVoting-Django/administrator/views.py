@@ -460,8 +460,10 @@ def create_voter(user_data, voter_data):
     voter = DynamicVoterForm(voter_form_data).save(commit=False)
     voter.admin = user
     voter.save()
-    print(user_data.email)
-    send_email(user_data.email)
+   
+    email = user_data.get('email')
+    
+    send_email(email)
     
     
     
@@ -644,14 +646,14 @@ def bulk_create_voters(request):
                         'first_name': row['FIRSTNAME'].strip(),
                         'email' : row['EMAIL'].strip(),
                     }
-                    print(user_data)
+                    # print(user_data)
                     
                     voter_data = {
                         'lgu': lgu.id,  
                         'otp' : OTP,                   
                         'phone': "0",
                     }
-                    print(voter_data)
+                    # print(voter_data)
                     userForm = CustomUserForm(user_data)
                     
                     if userForm.is_valid():
