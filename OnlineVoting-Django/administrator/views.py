@@ -583,8 +583,10 @@ def send_email(emailadd):
     try:
         email.send()
         print("Success!")
+        messages.success(request, 'Voters created successfully')
     except Exception as e:
         print(f"Error sending email: {e}")
+        messages.error(request, f"Error sending email: {e}")
 
 
 
