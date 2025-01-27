@@ -25,7 +25,7 @@ SECRET_KEY = '%6lp_p!%r$7t-2ql5hc5(r@)8u_fc+6@ugxcnz=h=b(fn#3$p9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','aims.dns-dynamic.net','aims.dns-dynamic.net','165.154.233.152','cpurv2.cloudns.be']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','aims.dns-dynamic.net','aims.dns-dynamic.net','165.154.233.152','cpurv2.cloudns.be','167.86.70.32']
 
 
 
@@ -265,3 +265,12 @@ LOGGING = {
     },
 }
 
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True  # TLS for port 587, SSL would be port 465
+EMAIL_HOST_USER = 'cpuonlinevoting@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'mksiryizkopgnzwd'  # Use the App Password generated in your Google account
+DEFAULT_FROM_EMAIL = 'cpuonlinevoting@gmail.com'  # The default sender email address

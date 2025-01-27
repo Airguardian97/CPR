@@ -16,6 +16,9 @@ import numpy as np
 import pandas as pd
 import csv
 from io import TextIOWrapper
+
+
+from django.core.mail import EmailMessage
 # from django.contrib.auth.decorators import user_passes_test
 # from django.utils.decorators import method_decorator
 
@@ -341,7 +344,9 @@ def voters(request):
             voter.admin = user
             user.save()
             voter.save()
+            
             messages.success(request, "New voter created")
+            send_email(user.email)
         else:
             messages.error(request, "Form validation failed")
     return render(request, "admin/voters.html", context)
@@ -455,6 +460,134 @@ def create_voter(user_data, voter_data):
     voter = DynamicVoterForm(voter_form_data).save(commit=False)
     voter.admin = user
     voter.save()
+    print(user_data.email)
+    send_email(user_data.email)
+    
+    
+    
+
+def send_email(emailadd):
+    print(emailadd)
+    subject = "How to Access and Start Voting on the Website"
+    message = """
+    <html>
+        <head>
+            <style>
+                body {
+                    font-family: 'Arial', sans-serif;
+                    background-color: #e0e0e0;  /* Grey background for the whole page */
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+                .container {
+                    width: 100%;
+                    max-width: 600px;
+                    padding: 30px;
+                    background-color: #ffffff;
+                    border-radius: 8px;
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                    text-align: center;
+                }
+                h2 {
+                    color: #333;
+                    font-size: 26px;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                }
+                p {
+                    font-size: 16px;
+                    color: #555;
+                    line-height: 1.6;
+                    margin: 10px 0;
+                }
+                ol {
+                    padding-left: 20px;
+                    font-size: 16px;
+                    color: #555;
+                    margin-bottom: 20px;
+                }
+                li {
+                    margin: 10px 0;
+                }
+                a {
+                    color: #1e7ce3;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+                .footer {
+                    font-size: 14px;
+                    color: #aaa;
+                    margin-top: 20px;
+                }
+                .btn {
+                    display: inline-block;
+                    padding: 12px 25px;
+                    margin-top: 20px;
+                    background-color: #1e7ce3;
+                    color: white;  /* Ensure the text is white */
+                    font-size: 16px;
+                    text-align: center;
+                    border-radius: 5px;
+                    text-decoration: none;
+                    transition: background-color 0.3s ease;
+                }
+                .btn:hover {
+                    background-color: #125b8e;
+                }
+                .note {
+                    margin-top: 30px;
+                    font-size: 14px;
+                    color: #777;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h2>Welcome to Our Voting Platform!</h2>
+                <p>Follow these simple steps to access the website and start voting:</p>
+                <ol>
+                    <li><b>Visit the website:</b> <a href="https://cpurv2.cloudns.be/" target="_blank">Click here to visit the site</a></li>
+                    <li><b>Login with Google:</b> Use the "Login with Google" button on the homepage to authenticate with your Google account.</li>
+                    <li><b>Start Voting:</b> Once logged in, you can explore the available voting options and cast your vote.</li>
+                </ol>
+               <a href="https://cpurv2.cloudns.be/" 
+   class="btn" 
+   target="_blank" 
+   style="display: inline-block; padding: 12px 25px; margin-top: 20px; background-color: #1e7ce3; color: white; font-size: 16px; text-align: center; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease;"
+   onmouseover="this.style.backgroundColor='#125b8e'" 
+   onmouseout="this.style.backgroundColor='#1e7ce3'">
+    Access the Voting Platform
+</a>
+
+                <div class="footer">
+                    <p>If you encounter any issues, feel free to reach out to us!</p>
+                </div>
+                <div class="note">
+                    <p>Thank you for participating!</p>
+                </div>
+            </div>
+        </body>
+    </html>
+    """
+    from_email = 'cpuonlinevoting@gmail.com'  # Your email
+    recipient_list = [emailadd]  # Ensure emailadd is in list format
+
+    # Create the email message
+    email = EmailMessage(subject, message, from_email, recipient_list)
+    email.content_subtype = 'html'  # Set email content type to HTML
+
+    try:
+        email.send()
+        print("Success!")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+
+
     
 
 def bulk_create_voters(request):

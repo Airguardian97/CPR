@@ -2635,3 +2635,112 @@ Traceback (most recent call last):
     raise TypeError(
 TypeError: context must be a dict rather than HttpResponseRedirect.
 "GET /administrator/votes/print/ HTTP/1.1" 500 100575
+Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'trans'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\base\views.py", line 16, in dispatch
+    resp = respond_to_login_on_get(request, provider)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\allauth\socialaccount\providers\base\utils.py", line 9, in respond_to_login_on_get
+    return render(
+           ^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 6: 'trans', expected 'endblock'. Did you forget to register or load this tag?
+"GET /accounts/google/login/ HTTP/1.1" 500 206629
+Internal Server Error: /administrator/voters
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\administrator\views.py", line 349, in voters
+    send_email()
+TypeError: send_email() missing 1 required positional argument: 'emailadd'
+"POST /administrator/voters HTTP/1.1" 500 77340
+Internal Server Error: /administrator/voters/saveotp
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administrator.views.OTPsave didn't return an HttpResponse object. It returned None instead.
+"POST /administrator/voters/saveotp HTTP/1.1" 500 75338
+Internal Server Error: /administrator/voters
+Traceback (most recent call last):
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\administrator\views.py", line 349, in voters
+    send_email(user.email)
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\administrator\views.py", line 580, in send_email
+    email = EmailMessage(subject, message, from_email, recipient_list)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TESDA\Desktop\Pthon Projects\OnlineVoting-Django[updated]\OnlineVoting-Django\venv\Lib\site-packages\django\core\mail\message.py", line 218, in __init__
+    raise TypeError('"to" argument must be a list or tuple')
+TypeError: "to" argument must be a list or tuple
+"POST /administrator/voters HTTP/1.1" 500 97575
