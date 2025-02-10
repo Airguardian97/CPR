@@ -1296,3 +1296,139 @@ def deleteLGU(request):
         
         
 #         return context
+
+
+
+def systemusers(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+
+    # Assuming there's a 'user_type' field that stores the user type
+    users = CustomUser.objects.filter(user_type__in=[1, 3])  # Filter users with type 1 and 3
+    userForm = CustomUserForm(request.POST or None)
+    print(userForm)
+    context = {
+        'CustomUser': users,
+        'form1': userForm,
+        'page_title': 'User List'
+    }
+    if request.method == 'POST':
+        if userForm.is_valid():            
+            
+            user = userForm.save(commit=False)        
+                        # Get user_type from POST request manually
+            user_type = request.POST.get('user_type')
+
+            if user_type:
+                user.user_type = int(user_type)  # Ensure that user_type is an integer
+
+            user.save()
+           
+            messages.success(request, "New voter created")
+ #
+        else:
+            messages.error(request, "Form validation failed")
+ 
+    return render(request, "admin/user.html", context)
+
+
+def updateUser(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect if not a superuser
+
+    if request.method == 'POST':
+        # Retrieve the username and user_type from the POST data
+        username = request.POST.get('username', None)
+        user_type = request.POST.get('user_type', None)  # Get the selected user type
+        if not username:
+            messages.error(request, "Username is required.")
+            return redirect(reverse('adminViewVoters'))
+
+        try:
+            # Fetch the user object
+            user = CustomUser.objects.get(id=request.POST.get('id'))
+
+            # Update the user's information
+            user.first_name = request.POST.get('first_name', user.first_name)
+            user.last_name = request.POST.get('last_name', user.last_name)
+            user.email = request.POST.get('email', user.email)
+
+            # Update user type if changed
+            if user_type:
+                user.user_type = int(user_type)  # Ensure that user_type is an integer
+                 # Update is_superuser based on user_type
+                if user.user_type != 2:  # If the user is not a Voter
+                    user.is_superuser = True  # Set superuser privileges
+                else:
+                    user.is_superuser = False 
+                    
+                    
+            # Check if the username needs to be updated
+            new_username = request.POST.get('username', None)
+            if new_username and new_username != user.username:
+                if CustomUser.objects.filter(username=new_username).exists():
+                    messages.error(request, "This username is already taken.")
+                    return redirect(reverse('adminViewVoters'))
+                user.username = new_username  # Update username
+
+            # Check if a new password is provided and update it
+            new_password = request.POST.get('password', None)
+            if new_password:
+                user.set_password(new_password)  # Securely set the new password
+
+            # Save the updated user instance
+            user.save()
+
+            messages.success(request, "Voter's details updated successfully.")
+        except CustomUser.DoesNotExist:
+            messages.error(request, "User not found.")
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+        
+        return redirect(reverse('adminViewVoters'))
+
+    else:
+        messages.error(request, "Invalid request method.")
+        return redirect(reverse('adminViewVoters'))
+
+
+def view_user_by_id(request):
+    if not request.user.is_superuser:
+        return redirect('voterDashboard')  # Redirect to voterDashboard if not a superuser
+
+    # Retrieve 'id' from GET parameters
+    username = request.GET.get('id', None)
+    print(f"Received username: {username}")  # Print the username to check if it's being passed
+    
+    if username is None:
+        return JsonResponse({"error": "Username (id) parameter is required"}, status=400)
+    
+    # Query CustomUser based on username
+    user_queryset = CustomUser.objects.filter(username=username)
+    
+    # Print the queryset to check its content
+    print(f"Queryset: {user_queryset}")
+
+    context = {}
+    
+    if not user_queryset.exists():  # Check if the queryset is empty
+        context['code'] = 404
+        context['message'] = "User not found"
+    else:
+        context['code'] = 200
+        user = user_queryset[0]  # Get the first matched user
+        
+        # Assuming CustomUser itself has the relevant data
+        context['first_name'] = user.first_name
+        context['last_name'] = user.last_name
+        context['username'] = username
+        context['email'] = user.email
+        context['user_type'] = user.user_type
+        # If the user has a phone field (otherwise remove this line)
+        context['phone'] = getattr(user, 'phone', 'N/A')  # Assuming 'phone' exists in CustomUser model
+        context['id'] = user.id
+        # Optional: Render a form (if necessary)
+        user_form = CustomUserForm(instance=user)
+        #context['form'] = str(user_form.as_p())  # If you want to include the form in HTML format
+
+    return JsonResponse(context)

@@ -17,21 +17,32 @@
       <li class="header"> </li>
      
       {% if request.user.user_type == '1' %}
-  
-      
+      <!-- Menu items for user_type 1 -->
       <li class="header">REPORTS</li>
-      <li class=""><a href="{% url 'adminDashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <li class=""><a href="{% url 'viewVotes' %}"><span class="glyphicon glyphicon-lock"></span> <span>Votes</span></a></li>
+      <li><a href="{% url 'adminDashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li><a href="{% url 'viewVotes' %}"><span class="glyphicon glyphicon-lock"></span> <span>Votes</span></a></li>
       <li class="header">MANAGE</li>
-      <li class=""><a href="{% url 'adminViewVoters' %}"><i class="fa fa-users"></i> <span>Voters</span></a></li>
-      <li class=""><a href="{% url 'viewPositions' %}"><i class="fa fa-tasks"></i> <span>Positions</span></a></li>
-      <li class=""><a href="{% url 'viewLgus' %}"><i class="fa fa-black-tie"></i> <span>LGU</span></a></li>
-      <li class=""><a href="{% url 'viewCandidates' %}"><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li>
+      <li><a href="{% url 'adminViewVoters' %}"><i class="fa fa-users"></i> <span>Voters</span></a></li>
+      <li><a href="{% url 'viewPositions' %}"><i class="fa fa-tasks"></i> <span>Positions</span></a></li>
+      <li><a href="{% url 'viewLgus' %}"><i class="fa fa-black-tie"></i> <span>LGU</span></a></li>
+      <li><a href="{% url 'viewCandidates' %}"><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li>
       <li class="header">SETTINGS</li>
-      <li class=""><a href="{% url 'ballot_position' %}"><i class="fa fa-file-text"></i> <span>Ballot Position</span></a></li>
-      <li class=""><a href="#config" data-toggle="modal"><i class="fa fa-font"></i> <span>Election Title</span></a></li>
-            
-      {% endif %}
+      <li><a href="{% url 'ballot_position' %}"><i class="fa fa-file-text"></i> <span>Ballot Position</span></a></li>
+      <li><a href="#config" data-toggle="modal"><i class="fa fa-font"></i> <span>Election Title</span></a></li>
+      <li><a href="{% url 'adminViewUser' %}"><i class="fa fa-file-text"></i> <span>System Account</span></a></li>
+  {% elif request.user.user_type == '3' %}
+    <!-- Menu items for user_type 1 -->
+    <li class="header">REPORTS</li>
+    <li><a href="{% url 'adminDashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+    <li><a href="{% url 'viewVotes' %}"><span class="glyphicon glyphicon-lock"></span> <span>Votes</span></a></li>
+    <li class="header">MANAGE</li>
+
+    <li><a href="{% url 'viewCandidates' %}"><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li>
+    <li class="header">SETTINGS</li>
+    <li><a href="{% url 'ballot_position' %}"><i class="fa fa-file-text"></i> <span>Ballot Position</span></a></li>
+   
+  {% endif %}
+  
         
       <li class="header">EXIT</li>
       <li class=""><a href="{% url 'account_logout' %}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>

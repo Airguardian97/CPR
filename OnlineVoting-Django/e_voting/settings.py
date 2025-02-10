@@ -245,7 +245,7 @@ ELECTION_TITLE_PATH = os.path.join(
 
 SEND_OTP = False  # If you toggle this to False, Kindly use 0000 as your OTP
 
-SESSION_COOKIE_AGE = 300
+SESSION_COOKIE_AGE = 3000
 
 LOGGING = {
     'version': 1,
@@ -272,5 +272,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # TLS for port 587, SSL would be port 465
 EMAIL_HOST_USER = 'cpuonlinevoting@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'mksiryizkopgnzwd'  # Use the App Password generated in your Google account
+EMAIL_HOST_PASSWORD = 'uzptimkdmdhscfib'  # Use the App Password generated in your Google account
 DEFAULT_FROM_EMAIL = 'cpuonlinevoting@gmail.com'  # The default sender email address

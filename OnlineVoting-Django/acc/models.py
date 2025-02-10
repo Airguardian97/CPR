@@ -33,7 +33,7 @@ class CustomUserManager(UserManager):
 
 
 class CustomUser(AbstractUser):
-    USER_TYPE = ((1, "Admin"), (2, "Voter"))
+    USER_TYPE = ((1, "Admin"), (2, "Voter"), (3, "Chair"))
     username = models.CharField(max_length=50, unique=True)    
     email = models.EmailField(..., blank = True, null = True, unique = True)
     user_type = models.CharField(default=2, choices=USER_TYPE, max_length=1)

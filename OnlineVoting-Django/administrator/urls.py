@@ -27,9 +27,10 @@ urlpatterns = [
     path('lgu/update', views.updateLGU, name="updateLGU"),
     path('lgu/delete', views.deleteLGU, name='deleteLGU'),
     
-    
-    
-    
+    #user system
+    path('user', views.systemusers, name="adminViewUser"),
+    path('users/update', views.updateUser, name="updateUser"),
+    path('users/view', views.view_user_by_id, name="viewUser"),
     # * Candidate
     path('candidate/', views.viewCandidates, name='viewCandidates'),
     path('candidate/update', views.updateCandidate, name="updateCandidate"),

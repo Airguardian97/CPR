@@ -22,7 +22,11 @@ def account_login(request):
         user = EmailBackend.authenticate(request, username=username, password=password)
         if user is not None:
             print("admin")
-            if user.user_type == "1":
+            if user.user_type == "1" :
+                login(request, user,backend='acc.email_backend.EmailBackend')
+                print(user.user_type)
+                return redirect(reverse("adminDashboard"))
+            elif user.user_type == "3":
                 login(request, user,backend='acc.email_backend.EmailBackend')
                 print(user.user_type)
                 return redirect(reverse("adminDashboard"))
